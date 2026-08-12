@@ -15,78 +15,210 @@
 <style>
 
 body {
+
   font-family: Arial, sans-serif;
+
   background: #f5f5f5;
+
   margin: 0;
-  padding: 40px 20px;
-  text-align: center;
+
+  padding: 30px 20px;
+
 }
+
 
 .container {
-  max-width: 550px;
+
+  max-width: 650px;
+
   margin: auto;
+
   background: white;
-  padding: 35px;
+
+  padding: 30px;
+
   border-radius: 18px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+
+  box-shadow:
+    0 4px 20px
+    rgba(0,0,0,0.12);
+
 }
+
 
 h1 {
-  margin-top: 0;
+
+  text-align: center;
+
 }
+
+
+.speaker {
+
+  text-align: center;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  margin: 15px;
+
+}
+
+
+.context {
+
+  background: #f1f3f4;
+
+  padding: 18px;
+
+  border-radius: 10px;
+
+  margin: 20px 0;
+
+}
+
+
+.context div {
+
+  margin: 8px 0;
+
+}
+
+
+.label {
+
+  font-weight: bold;
+
+}
+
+
+input {
+
+  width: 100%;
+
+  box-sizing: border-box;
+
+  padding: 12px;
+
+  font-size: 16px;
+
+  border:
+    1px solid #ccc;
+
+  border-radius: 8px;
+
+  margin-top: 8px;
+
+}
+
 
 #timer {
+
+  text-align: center;
+
   font-size: 42px;
+
   font-weight: bold;
+
   margin: 25px 0;
+
 }
+
+
+.buttons {
+
+  text-align: center;
+
+}
+
 
 button {
+
   border: none;
+
   border-radius: 10px;
+
   padding: 14px 22px;
+
   margin: 6px;
+
   font-size: 16px;
+
   cursor: pointer;
+
 }
+
 
 #startBtn {
+
   background: #d93025;
+
   color: white;
+
 }
+
 
 #stopBtn {
+
   background: #444;
+
   color: white;
+
 }
 
-#saveBtn {
-  background: #188038;
-  color: white;
-}
 
 #resetBtn {
+
   background: #777;
+
   color: white;
+
 }
+
+
+#saveBtn {
+
+  background: #188038;
+
+  color: white;
+
+}
+
 
 button:disabled {
+
   opacity: 0.4;
+
   cursor: not-allowed;
+
 }
 
-#status {
-  margin-top: 25px;
-  min-height: 30px;
-}
 
 audio {
+
   width: 100%;
-  margin-top: 25px;
+
+  margin-top: 20px;
+
 }
 
+
+#status {
+
+  text-align: center;
+
+  margin-top: 20px;
+
+  min-height: 30px;
+
+}
+
+
 #uploadFrame {
+
   display: none;
+
 }
 
 </style>
@@ -99,63 +231,172 @@ audio {
 
 <div class="container">
 
-<h1>🎙️ CA Doubt Recorder</h1>
 
-<p>
-Record your doubt and save it to Google Drive.
-</p>
+<h1>
+
+🎙️ CA Doubt Recorder
+
+</h1>
 
 
-<div id="timer">
-00:00
+<div class="speaker">
+
+Speaker:
+
+<span id="speaker"></span>
+
 </div>
 
 
-<button id="startBtn"
-        onclick="startRecording()">
+<div class="context">
+
+
+<div>
+
+<span class="label">
+Subject:
+</span>
+
+<span id="subject"></span>
+
+</div>
+
+
+<div>
+
+<span class="label">
+Section:
+</span>
+
+<span id="section"></span>
+
+</div>
+
+
+<div>
+
+<span class="label">
+Doubt:
+</span>
+
+<span id="doubt"></span>
+
+</div>
+
+
+</div>
+
+
+<label class="label">
+
+Recording Name
+
+</label>
+
+
+<input
+
+  id="recordingName"
+
+  type="text"
+
+  placeholder=
+  "Enter a name for this recording"
+
+
+>
+
+
+<div id="timer">
+
+00:00
+
+</div>
+
+
+<div class="buttons">
+
+
+<button
+
+  id="startBtn"
+
+  onclick=
+  "startRecording()"
+
+>
 
 🎙️ Start Recording
 
 </button>
 
 
-<button id="stopBtn"
-        onclick="stopRecording()"
-        disabled>
+<button
+
+  id="stopBtn"
+
+  onclick=
+  "stopRecording()"
+
+  disabled
+
+>
 
 ⏹️ Stop
 
 </button>
 
 
-<button id="resetBtn"
-        onclick="resetRecorder()"
-        disabled>
+<button
+
+  id="resetBtn"
+
+  onclick=
+  "resetRecorder()"
+
+  disabled
+
+>
 
 🔄 Reset
 
 </button>
 
 
-<br>
+</div>
 
 
-<audio id="audioPlayer"
-       controls
-       style="display:none;">
+<audio
+
+  id="audioPlayer"
+
+  controls
+
+  style="display:none;">
+
 </audio>
 
 
-<br>
+<div class="buttons">
 
 
-<button id="saveBtn"
-        onclick="saveRecording()"
-        disabled>
+<button
+
+  id="saveBtn"
+
+  onclick=
+  "saveRecording()"
+
+  disabled
+
+>
 
 ☁️ Save to Google Drive
 
 </button>
+
+
+</div>
 
 
 <div id="status">
@@ -166,8 +407,13 @@ Ready to record.
 
 
 <iframe
+
   name="uploadFrame"
-  id="uploadFrame">
+
+  id="uploadFrame"
+
+>
+
 </iframe>
 
 
@@ -178,15 +424,112 @@ Ready to record.
 <script>
 
 
-// ==================================================
-// PUT YOUR APPS SCRIPT WEB APP URL HERE
-// ==================================================
+/***************************************************
+ * PUT YOUR NEW APPS SCRIPT /exec URL HERE
+ ***************************************************/
 
 const APPS_SCRIPT_URL =
-  'https://script.google.com/macros/s/AKfycbzk7usj1vvcU-5F2jce5U1UOpo-y9-rrOi5OZSYTDDh3XUmH_na63aDQB-2U8Xi1crH/exec';
+
+  'https://script.google.com/macros/s/AKfycbwzr1yMMI50XYakNDPi3DNZA5dMgAeHXv8NtbvQBT3wr6b1baA51sXg3TDc_8I9Z0gI/exec';
 
 
-// ==================================================
+/***************************************************
+ * READ INFORMATION FROM GOOGLE SHEET
+ ***************************************************/
+
+const params =
+
+  new URLSearchParams(
+    window.location.search
+  );
+
+
+const row =
+
+  params.get('row') || '';
+
+
+const speaker =
+
+  params.get('speaker') ||
+
+  'Dhabbaaa swaram';
+
+
+const subject =
+
+  params.get('subject') || '';
+
+
+const section =
+
+  params.get('section') || '';
+
+
+const doubt =
+
+  params.get('doubt') || '';
+
+
+/***************************************************
+ * SHOW CONTEXT
+ ***************************************************/
+
+document.getElementById(
+  'speaker'
+).innerText = speaker;
+
+
+document.getElementById(
+  'subject'
+).innerText =
+  subject || '—';
+
+
+document.getElementById(
+  'section'
+).innerText =
+  section || '—';
+
+
+document.getElementById(
+  'doubt'
+).innerText =
+  doubt || '—';
+
+
+/***************************************************
+ * DEFAULT RECORDING NAME
+ ***************************************************/
+
+document.getElementById(
+  'recordingName'
+).value =
+
+  (
+
+    subject ||
+
+    'CA Doubt'
+
+  )
+
+  +
+
+  (
+
+    section
+
+      ? ' - ' + section
+
+      : ''
+
+  );
+
+
+/***************************************************
+ * RECORDING VARIABLES
+ ***************************************************/
 
 let mediaRecorder = null;
 
@@ -199,31 +542,49 @@ let timerInterval = null;
 let seconds = 0;
 
 
+/***************************************************
+ * START RECORDING
+ ***************************************************/
 
-// START RECORDING
 async function startRecording() {
+
 
   try {
 
+
     const stream =
-      await navigator.mediaDevices.getUserMedia({
-        audio: true
-      });
+
+      await navigator
+        .mediaDevices
+        .getUserMedia({
+
+          audio: true
+
+        });
 
 
     audioChunks = [];
 
 
     mediaRecorder =
-      new MediaRecorder(stream);
+
+      new MediaRecorder(
+        stream
+      );
 
 
     mediaRecorder.ondataavailable =
+
       function(event) {
 
-        if (event.data.size > 0) {
 
-          audioChunks.push(event.data);
+        if (
+          event.data.size > 0
+        ) {
+
+          audioChunks.push(
+            event.data
+          );
 
         }
 
@@ -231,30 +592,46 @@ async function startRecording() {
 
 
     mediaRecorder.onstop =
+
       function() {
 
+
         audioBlob =
+
           new Blob(
+
             audioChunks,
+
             {
-              type: 'audio/webm'
+
+              type:
+                'audio/webm'
+
             }
+
           );
 
 
         const audioURL =
-          URL.createObjectURL(audioBlob);
+
+          URL.createObjectURL(
+            audioBlob
+          );
 
 
         const player =
+
           document.getElementById(
             'audioPlayer'
           );
 
 
-        player.src = audioURL;
+        player.src =
+          audioURL;
 
-        player.style.display = 'block';
+
+        player.style.display =
+          'block';
 
 
         document.getElementById(
@@ -265,7 +642,8 @@ async function startRecording() {
         document.getElementById(
           'status'
         ).innerText =
-          '✅ Recording finished. Listen to it before saving.';
+
+          '✅ Recording finished. Listen before saving.';
 
       };
 
@@ -290,47 +668,61 @@ async function startRecording() {
 
     seconds = 0;
 
+
     updateTimer();
 
 
     timerInterval =
+
       setInterval(
+
         updateTimer,
+
         1000
+
       );
 
 
     document.getElementById(
       'status'
     ).innerText =
+
       '🔴 Recording...';
+
 
   }
 
 
   catch(error) {
 
-    console.error(error);
-
 
     document.getElementById(
       'status'
     ).innerText =
-      '❌ Microphone access failed.';
+
+      '❌ Microphone permission failed.';
 
   }
 
 }
 
 
+/***************************************************
+ * STOP RECORDING
+ ***************************************************/
 
-// STOP RECORDING
 function stopRecording() {
 
+
   if (
+
     mediaRecorder &&
-    mediaRecorder.state !== 'inactive'
+
+    mediaRecorder.state !==
+      'inactive'
+
   ) {
+
 
     mediaRecorder.stop();
 
@@ -338,13 +730,18 @@ function stopRecording() {
     mediaRecorder.stream
       .getTracks()
       .forEach(
-        track => track.stop()
+
+        track =>
+          track.stop()
+
       );
 
   }
 
 
-  clearInterval(timerInterval);
+  clearInterval(
+    timerInterval
+  );
 
 
   document.getElementById(
@@ -364,18 +761,25 @@ function stopRecording() {
 }
 
 
+/***************************************************
+ * TIMER
+ ***************************************************/
 
-// TIMER
 function updateTimer() {
+
 
   seconds++;
 
 
   const minutes =
-    Math.floor(seconds / 60);
+
+    Math.floor(
+      seconds / 60
+    );
 
 
   const secs =
+
     seconds % 60;
 
 
@@ -385,18 +789,25 @@ function updateTimer() {
 
     String(minutes)
       .padStart(2, '0')
+
     +
+
     ':'
+
     +
+
     String(secs)
       .padStart(2, '0');
 
 }
 
 
+/***************************************************
+ * RESET
+ ***************************************************/
 
-// RESET
 function resetRecorder() {
+
 
   audioChunks = [];
 
@@ -404,6 +815,7 @@ function resetRecorder() {
 
 
   const player =
+
     document.getElementById(
       'audioPlayer'
     );
@@ -411,12 +823,14 @@ function resetRecorder() {
 
   player.src = '';
 
-  player.style.display = 'none';
+  player.style.display =
+    'none';
 
 
   document.getElementById(
     'timer'
-  ).innerText = '00:00';
+  ).innerText =
+    '00:00';
 
 
   document.getElementById(
@@ -450,11 +864,37 @@ function resetRecorder() {
 }
 
 
+/***************************************************
+ * SAVE RECORDING
+ ***************************************************/
 
-// SAVE TO GOOGLE DRIVE
 function saveRecording() {
 
+
   if (!audioBlob) {
+
+    return;
+
+  }
+
+
+  const recordingName =
+
+    document
+      .getElementById(
+        'recordingName'
+      )
+      .value
+      .trim();
+
+
+  if (!recordingName) {
+
+
+    alert(
+      'Please enter a recording name.'
+    );
+
 
     return;
 
@@ -469,35 +909,49 @@ function saveRecording() {
   document.getElementById(
     'status'
   ).innerText =
-    '⏳ Uploading to Google Drive...';
+
+    '⏳ Saving to Google Drive...';
 
 
   const reader =
+
     new FileReader();
 
 
   reader.onloadend =
+
     function() {
 
 
       const base64 =
+
         reader.result
           .split(',')[1];
 
 
-      // Create a hidden form
       const form =
-        document.createElement('form');
+
+        document.createElement(
+          'form'
+        );
 
 
-      form.method = 'POST';
-
-      form.action = APPS_SCRIPT_URL;
-
-      form.target = 'uploadFrame';
+      form.method =
+        'POST';
 
 
-      // Audio
+      form.action =
+        APPS_SCRIPT_URL;
+
+
+      form.target =
+        'uploadFrame';
+
+
+      /***********************************************
+       * SEND AUDIO
+       ***********************************************/
+
       addField(
         form,
         'audioData',
@@ -505,27 +959,96 @@ function saveRecording() {
       );
 
 
-      // File name
+      /***********************************************
+       * SEND RECORDING NAME
+       ***********************************************/
+
       addField(
         form,
-        'fileName',
-        'CA_Doubt_' +
-        new Date()
-          .toISOString()
-          .replace(/[:.]/g, '-') +
-        '.webm'
+        'recordingName',
+        recordingName
       );
 
 
-      // TEST: save to row 2
+      /***********************************************
+       * SEND ROW
+       ***********************************************/
+
       addField(
         form,
         'rowNumber',
-        '2'
+        row
       );
 
 
-      document.body.appendChild(form);
+      /***********************************************
+       * SEND SPEAKER
+       ***********************************************/
+
+      addField(
+        form,
+        'speaker',
+        speaker
+      );
+
+
+      /***********************************************
+       * SEND CONTEXT
+       ***********************************************/
+
+      addField(
+        form,
+        'subject',
+        subject
+      );
+
+
+      addField(
+        form,
+        'section',
+        section
+      );
+
+
+      addField(
+        form,
+        'doubt',
+        doubt
+      );
+
+
+      document.body.appendChild(
+        form
+      );
+
+
+      /***********************************************
+       * WHEN GOOGLE RESPONDS
+       *
+       * The iframe load means Apps Script has
+       * returned its response.
+       ***********************************************/
+
+      const iframe =
+
+        document.getElementById(
+          'uploadFrame'
+        );
+
+
+      iframe.onload =
+
+        function() {
+
+
+          document.getElementById(
+            'status'
+          ).innerText =
+
+            '✅ Saved to Google Drive';
+
+
+        };
 
 
       form.submit();
@@ -536,82 +1059,48 @@ function saveRecording() {
     };
 
 
-  reader.readAsDataURL(audioBlob);
+  reader.readAsDataURL(
+    audioBlob
+  );
 
 }
 
 
+/***************************************************
+ * ADD HIDDEN FIELD
+ ***************************************************/
 
-// ADD HIDDEN FORM FIELD
 function addField(
   form,
   name,
   value
 ) {
 
+
   const input =
-    document.createElement('input');
+
+    document.createElement(
+      'input'
+    );
 
 
-  input.type = 'hidden';
-
-  input.name = name;
-
-  input.value = value;
+  input.type =
+    'hidden';
 
 
-  form.appendChild(input);
+  input.name =
+    name;
+
+
+  input.value =
+    value;
+
+
+  form.appendChild(
+    input
+  );
 
 }
-
-
-
-// RECEIVE RESULT FROM APPS SCRIPT
-window.addEventListener(
-  'message',
-  function(event) {
-
-    if (
-      event.data &&
-      event.data.type ===
-      'VOICE_UPLOAD_SUCCESS'
-    ) {
-
-      document.getElementById(
-        'status'
-      ).innerText =
-        '✅ Saved successfully to Google Drive!';
-
-
-      document.getElementById(
-        'resetBtn'
-      ).disabled = false;
-
-    }
-
-
-    if (
-      event.data &&
-      event.data.type ===
-      'VOICE_UPLOAD_ERROR'
-    ) {
-
-      document.getElementById(
-        'status'
-      ).innerText =
-        '❌ Upload failed: ' +
-        event.data.message;
-
-
-      document.getElementById(
-        'saveBtn'
-      ).disabled = false;
-
-    }
-
-  }
-);
-
 
 </script>
 
