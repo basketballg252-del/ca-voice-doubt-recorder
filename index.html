@@ -1,133 +1,203 @@
 <!DOCTYPE html>
+
 <html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>CA Doubt Voice Recorder</title>
+<meta charset="UTF-8">
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 40px 20px;
-      text-align: center;
-    }
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
 
-    .container {
-      max-width: 550px;
-      margin: auto;
-      background: white;
-      padding: 35px;
-      border-radius: 18px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
-    }
+<title>CA Doubt Voice Recorder</title>
 
-    h1 {
-      margin-top: 0;
-      font-size: 28px;
-    }
 
-    .subtitle {
-      color: #666;
-      margin-bottom: 30px;
-    }
+<style>
 
-    #timer {
-      font-size: 42px;
-      font-weight: bold;
-      margin: 25px 0;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+  margin: 0;
+  padding: 40px 20px;
+  text-align: center;
+}
 
-    button {
-      border: none;
-      border-radius: 10px;
-      padding: 14px 22px;
-      margin: 6px;
-      font-size: 16px;
-      cursor: pointer;
-    }
+.container {
+  max-width: 550px;
+  margin: auto;
+  background: white;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+}
 
-    #startBtn {
-      background: #d93025;
-      color: white;
-    }
+h1 {
+  margin-top: 0;
+}
 
-    #stopBtn {
-      background: #444;
-      color: white;
-    }
+#timer {
+  font-size: 42px;
+  font-weight: bold;
+  margin: 25px 0;
+}
 
-    #resetBtn {
-      background: #777;
-      color: white;
-    }
+button {
+  border: none;
+  border-radius: 10px;
+  padding: 14px 22px;
+  margin: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-    button:disabled {
-      opacity: 0.4;
-      cursor: not-allowed;
-    }
+#startBtn {
+  background: #d93025;
+  color: white;
+}
 
-    #status {
-      margin-top: 25px;
-      min-height: 25px;
-      color: #555;
-    }
+#stopBtn {
+  background: #444;
+  color: white;
+}
 
-    audio {
-      width: 100%;
-      margin-top: 25px;
-    }
+#saveBtn {
+  background: #188038;
+  color: white;
+}
 
-    .recording {
-      color: #d93025;
-      font-weight: bold;
-    }
-  </style>
+#resetBtn {
+  background: #777;
+  color: white;
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+#status {
+  margin-top: 25px;
+  min-height: 30px;
+}
+
+audio {
+  width: 100%;
+  margin-top: 25px;
+}
+
+#uploadFrame {
+  display: none;
+}
+
+</style>
+
 </head>
+
 
 <body>
 
+
 <div class="container">
 
-  <h1>🎙️ CA Doubt Recorder</h1>
+<h1>🎙️ CA Doubt Recorder</h1>
 
-  <div class="subtitle">
-    Record your doubt and listen to it later.
-  </div>
+<p>
+Record your doubt and save it to Google Drive.
+</p>
 
-  <div id="timer">00:00</div>
 
-  <button id="startBtn" onclick="startRecording()">
-    🎙️ Start Recording
-  </button>
+<div id="timer">
+00:00
+</div>
 
-  <button id="stopBtn" onclick="stopRecording()" disabled>
-    ⏹️ Stop
-  </button>
 
-  <button id="resetBtn" onclick="resetRecorder()" disabled>
-    🔄 Reset
-  </button>
+<button id="startBtn"
+        onclick="startRecording()">
 
-  <div id="status">
-    Ready to record.
-  </div>
+🎙️ Start Recording
 
-  <audio id="audioPlayer" controls style="display:none;"></audio>
+</button>
+
+
+<button id="stopBtn"
+        onclick="stopRecording()"
+        disabled>
+
+⏹️ Stop
+
+</button>
+
+
+<button id="resetBtn"
+        onclick="resetRecorder()"
+        disabled>
+
+🔄 Reset
+
+</button>
+
+
+<br>
+
+
+<audio id="audioPlayer"
+       controls
+       style="display:none;">
+</audio>
+
+
+<br>
+
+
+<button id="saveBtn"
+        onclick="saveRecording()"
+        disabled>
+
+☁️ Save to Google Drive
+
+</button>
+
+
+<div id="status">
+
+Ready to record.
 
 </div>
 
 
+<iframe
+  name="uploadFrame"
+  id="uploadFrame">
+</iframe>
+
+
+</div>
+
+
+
 <script>
 
+
+// ==================================================
+// PUT YOUR APPS SCRIPT WEB APP URL HERE
+// ==================================================
+
+const APPS_SCRIPT_URL =
+  'https://script.google.com/macros/s/AKfycbzk7usj1vvcU-5F2jce5U1UOpo-y9-rrOi5OZSYTDDh3XUmH_na63aDQB-2U8Xi1crH/exec';
+
+
+// ==================================================
+
 let mediaRecorder = null;
+
 let audioChunks = [];
+
 let audioBlob = null;
 
 let timerInterval = null;
+
 let seconds = 0;
+
 
 
 // START RECORDING
@@ -135,69 +205,123 @@ async function startRecording() {
 
   try {
 
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true
-    });
+    const stream =
+      await navigator.mediaDevices.getUserMedia({
+        audio: true
+      });
+
 
     audioChunks = [];
 
-    mediaRecorder = new MediaRecorder(stream);
 
-    mediaRecorder.ondataavailable = function(event) {
+    mediaRecorder =
+      new MediaRecorder(stream);
 
-      if (event.data.size > 0) {
-        audioChunks.push(event.data);
-      }
 
-    };
+    mediaRecorder.ondataavailable =
+      function(event) {
 
-    mediaRecorder.onstop = function() {
+        if (event.data.size > 0) {
 
-      audioBlob = new Blob(
-        audioChunks,
-        { type: 'audio/webm' }
-      );
+          audioChunks.push(event.data);
 
-      const audioURL = URL.createObjectURL(audioBlob);
+        }
 
-      const player = document.getElementById("audioPlayer");
+      };
 
-      player.src = audioURL;
-      player.style.display = "block";
 
-      document.getElementById("status").innerText =
-        "✅ Recording finished. Press ▶️ below to listen.";
+    mediaRecorder.onstop =
+      function() {
 
-    };
+        audioBlob =
+          new Blob(
+            audioChunks,
+            {
+              type: 'audio/webm'
+            }
+          );
+
+
+        const audioURL =
+          URL.createObjectURL(audioBlob);
+
+
+        const player =
+          document.getElementById(
+            'audioPlayer'
+          );
+
+
+        player.src = audioURL;
+
+        player.style.display = 'block';
+
+
+        document.getElementById(
+          'saveBtn'
+        ).disabled = false;
+
+
+        document.getElementById(
+          'status'
+        ).innerText =
+          '✅ Recording finished. Listen to it before saving.';
+
+      };
+
 
     mediaRecorder.start();
 
-    // Turn off microphone buttons appropriately
-    document.getElementById("startBtn").disabled = true;
-    document.getElementById("stopBtn").disabled = false;
-    document.getElementById("resetBtn").disabled = true;
+
+    document.getElementById(
+      'startBtn'
+    ).disabled = true;
+
+
+    document.getElementById(
+      'stopBtn'
+    ).disabled = false;
+
+
+    document.getElementById(
+      'resetBtn'
+    ).disabled = true;
+
 
     seconds = 0;
 
     updateTimer();
 
-    timerInterval = setInterval(updateTimer, 1000);
 
-    document.getElementById("status").innerHTML =
-      '<span class="recording">🔴 Recording...</span>';
+    timerInterval =
+      setInterval(
+        updateTimer,
+        1000
+      );
+
+
+    document.getElementById(
+      'status'
+    ).innerText =
+      '🔴 Recording...';
 
   }
 
-  catch (error) {
+
+  catch(error) {
 
     console.error(error);
 
-    document.getElementById("status").innerText =
-      "❌ Microphone access was denied. Please allow microphone access in your browser.";
+
+    document.getElementById(
+      'status'
+    ).innerText =
+      '❌ Microphone access failed.';
 
   }
 
 }
+
 
 
 // STOP RECORDING
@@ -205,25 +329,40 @@ function stopRecording() {
 
   if (
     mediaRecorder &&
-    mediaRecorder.state !== "inactive"
+    mediaRecorder.state !== 'inactive'
   ) {
 
     mediaRecorder.stop();
 
-    // Stop microphone completely
-    mediaRecorder.stream.getTracks().forEach(
-      track => track.stop()
-    );
+
+    mediaRecorder.stream
+      .getTracks()
+      .forEach(
+        track => track.stop()
+      );
 
   }
 
+
   clearInterval(timerInterval);
 
-  document.getElementById("startBtn").disabled = true;
-  document.getElementById("stopBtn").disabled = true;
-  document.getElementById("resetBtn").disabled = false;
+
+  document.getElementById(
+    'startBtn'
+  ).disabled = true;
+
+
+  document.getElementById(
+    'stopBtn'
+  ).disabled = true;
+
+
+  document.getElementById(
+    'resetBtn'
+  ).disabled = false;
 
 }
+
 
 
 // TIMER
@@ -231,42 +370,252 @@ function updateTimer() {
 
   seconds++;
 
-  const minutes = Math.floor(seconds / 60);
 
-  const secs = seconds % 60;
+  const minutes =
+    Math.floor(seconds / 60);
 
-  document.getElementById("timer").innerText =
-    String(minutes).padStart(2, "0")
-    + ":"
-    + String(secs).padStart(2, "0");
+
+  const secs =
+    seconds % 60;
+
+
+  document.getElementById(
+    'timer'
+  ).innerText =
+
+    String(minutes)
+      .padStart(2, '0')
+    +
+    ':'
+    +
+    String(secs)
+      .padStart(2, '0');
 
 }
+
 
 
 // RESET
 function resetRecorder() {
 
   audioChunks = [];
+
   audioBlob = null;
 
-  document.getElementById("audioPlayer").style.display = "none";
 
-  document.getElementById("audioPlayer").src = "";
+  const player =
+    document.getElementById(
+      'audioPlayer'
+    );
 
-  document.getElementById("timer").innerText = "00:00";
 
-  document.getElementById("status").innerText =
-    "Ready to record.";
+  player.src = '';
 
-  document.getElementById("startBtn").disabled = false;
-  document.getElementById("stopBtn").disabled = true;
-  document.getElementById("resetBtn").disabled = true;
+  player.style.display = 'none';
+
+
+  document.getElementById(
+    'timer'
+  ).innerText = '00:00';
+
+
+  document.getElementById(
+    'status'
+  ).innerText =
+    'Ready to record.';
+
+
+  document.getElementById(
+    'startBtn'
+  ).disabled = false;
+
+
+  document.getElementById(
+    'stopBtn'
+  ).disabled = true;
+
+
+  document.getElementById(
+    'resetBtn'
+  ).disabled = true;
+
+
+  document.getElementById(
+    'saveBtn'
+  ).disabled = true;
+
 
   seconds = 0;
 
 }
 
+
+
+// SAVE TO GOOGLE DRIVE
+function saveRecording() {
+
+  if (!audioBlob) {
+
+    return;
+
+  }
+
+
+  document.getElementById(
+    'saveBtn'
+  ).disabled = true;
+
+
+  document.getElementById(
+    'status'
+  ).innerText =
+    '⏳ Uploading to Google Drive...';
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onloadend =
+    function() {
+
+
+      const base64 =
+        reader.result
+          .split(',')[1];
+
+
+      // Create a hidden form
+      const form =
+        document.createElement('form');
+
+
+      form.method = 'POST';
+
+      form.action = APPS_SCRIPT_URL;
+
+      form.target = 'uploadFrame';
+
+
+      // Audio
+      addField(
+        form,
+        'audioData',
+        base64
+      );
+
+
+      // File name
+      addField(
+        form,
+        'fileName',
+        'CA_Doubt_' +
+        new Date()
+          .toISOString()
+          .replace(/[:.]/g, '-') +
+        '.webm'
+      );
+
+
+      // TEST: save to row 2
+      addField(
+        form,
+        'rowNumber',
+        '2'
+      );
+
+
+      document.body.appendChild(form);
+
+
+      form.submit();
+
+
+      form.remove();
+
+    };
+
+
+  reader.readAsDataURL(audioBlob);
+
+}
+
+
+
+// ADD HIDDEN FORM FIELD
+function addField(
+  form,
+  name,
+  value
+) {
+
+  const input =
+    document.createElement('input');
+
+
+  input.type = 'hidden';
+
+  input.name = name;
+
+  input.value = value;
+
+
+  form.appendChild(input);
+
+}
+
+
+
+// RECEIVE RESULT FROM APPS SCRIPT
+window.addEventListener(
+  'message',
+  function(event) {
+
+    if (
+      event.data &&
+      event.data.type ===
+      'VOICE_UPLOAD_SUCCESS'
+    ) {
+
+      document.getElementById(
+        'status'
+      ).innerText =
+        '✅ Saved successfully to Google Drive!';
+
+
+      document.getElementById(
+        'resetBtn'
+      ).disabled = false;
+
+    }
+
+
+    if (
+      event.data &&
+      event.data.type ===
+      'VOICE_UPLOAD_ERROR'
+    ) {
+
+      document.getElementById(
+        'status'
+      ).innerText =
+        '❌ Upload failed: ' +
+        event.data.message;
+
+
+      document.getElementById(
+        'saveBtn'
+      ).disabled = false;
+
+    }
+
+  }
+);
+
+
 </script>
 
+
 </body>
+
 </html>
