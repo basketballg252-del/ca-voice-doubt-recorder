@@ -1,227 +1,1107 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 
 <head>
 
-<meta charset="UTF-8">
+  <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  >
 
-<title>CA Doubt Voice Recorder</title>
+  <meta
+    name="theme-color"
+    content="#0b1220"
+  >
 
+  <title>CA Doubt Voice Recorder</title>
 
-<style>
 
-body {
+  <style>
 
-  font-family: Arial, sans-serif;
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
 
-  background: #f5f5f5;
 
-  margin: 0;
+    :root {
 
-  padding: 30px 20px;
+      --bg: #eef2f7;
+      --card: #ffffff;
+      --dark: #0b1220;
+      --dark-2: #151f32;
+      --text: #172033;
+      --muted: #718096;
+      --border: #e5e9f0;
 
-}
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
 
+      --danger: #ef4444;
+      --danger-dark: #dc2626;
 
-.container {
+      --success: #16a34a;
+      --success-dark: #15803d;
 
-  max-width: 650px;
+      --shadow:
+        0 18px 50px rgba(15, 23, 42, 0.10);
 
-  margin: auto;
+      --radius: 22px;
 
-  background: white;
+    }
 
-  padding: 30px;
 
-  border-radius: 18px;
+    html {
+      min-height: 100%;
+    }
 
-  box-shadow:
-    0 4px 20px
-    rgba(0,0,0,0.12);
 
-}
+    body {
 
+      margin: 0;
 
-h1 {
+      min-height: 100vh;
 
-  text-align: center;
+      font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
 
-}
+      background:
+        radial-gradient(
+          circle at top left,
+          rgba(37, 99, 235, 0.12),
+          transparent 35%
+        ),
+        linear-gradient(
+          180deg,
+          #f8fafc 0%,
+          var(--bg) 100%
+        );
 
+      color: var(--text);
 
-.speaker {
+      padding:
+        24px 16px
+        calc(24px + env(safe-area-inset-bottom));
 
-  text-align: center;
+    }
 
-  font-size: 20px;
 
-  font-weight: bold;
+    .app {
 
-  margin: 15px;
+      width: 100%;
 
-}
+      max-width: 720px;
 
+      margin: 0 auto;
 
-.context {
+    }
 
-  background: #f1f3f4;
 
-  padding: 18px;
+    /* =========================================
+       TOP HEADER
+       ========================================= */
 
-  border-radius: 10px;
+    .topbar {
 
-  margin: 20px 0;
+      display: flex;
 
-}
+      align-items: center;
 
+      justify-content: space-between;
 
-.context div {
+      margin-bottom: 18px;
 
-  margin: 8px 0;
+    }
 
-}
 
+    .brand {
 
-.label {
+      display: flex;
 
-  font-weight: bold;
+      align-items: center;
 
-}
+      gap: 12px;
 
+    }
 
-input {
 
-  width: 100%;
+    .brand-icon {
 
-  box-sizing: border-box;
+      width: 46px;
 
-  padding: 12px;
+      height: 46px;
 
-  font-size: 16px;
+      border-radius: 15px;
 
-  border:
-    1px solid #ccc;
+      display: flex;
 
-  border-radius: 8px;
+      align-items: center;
 
-  margin-top: 8px;
+      justify-content: center;
 
-}
+      font-size: 23px;
 
+      background:
+        linear-gradient(
+          135deg,
+          #2563eb,
+          #7c3aed
+        );
 
-#timer {
+      color: white;
 
-  text-align: center;
+      box-shadow:
+        0 10px 25px
+        rgba(37, 99, 235, 0.25);
 
-  font-size: 42px;
+    }
 
-  font-weight: bold;
 
-  margin: 25px 0;
+    .brand-title {
 
-}
+      font-size: 17px;
 
+      font-weight: 800;
 
-.buttons {
+      letter-spacing: -0.3px;
 
-  text-align: center;
+    }
 
-}
 
+    .brand-subtitle {
 
-button {
+      font-size: 11px;
 
-  border: none;
+      color: var(--muted);
 
-  border-radius: 10px;
+      margin-top: 2px;
 
-  padding: 14px 22px;
+    }
 
-  margin: 6px;
 
-  font-size: 16px;
+    /* =========================================
+       SPEAKER BADGE
+       ========================================= */
 
-  cursor: pointer;
+    .speaker-badge {
 
-}
+      display: inline-flex;
 
+      align-items: center;
 
-#startBtn {
+      gap: 7px;
 
-  background: #d93025;
+      padding: 9px 13px;
 
-  color: white;
+      border-radius: 999px;
 
-}
+      background: #e8eefc;
 
+      color: #244c9b;
 
-#stopBtn {
+      font-size: 12px;
 
-  background: #444;
+      font-weight: 800;
 
-  color: white;
+      max-width: 180px;
 
-}
+    }
 
 
-#resetBtn {
+    .speaker-dot {
 
-  background: #777;
+      width: 8px;
 
-  color: white;
+      height: 8px;
 
-}
+      border-radius: 50%;
 
+      background: #2563eb;
 
-#saveBtn {
+      flex-shrink: 0;
 
-  background: #188038;
+    }
 
-  color: white;
 
-}
+    /* =========================================
+       MAIN CARD
+       ========================================= */
 
+    .main-card {
 
-button:disabled {
+      background: rgba(255,255,255,0.96);
 
-  opacity: 0.4;
+      border: 1px solid rgba(255,255,255,0.8);
 
-  cursor: not-allowed;
+      border-radius: var(--radius);
 
-}
+      box-shadow: var(--shadow);
 
+      overflow: hidden;
 
-audio {
+    }
 
-  width: 100%;
 
-  margin-top: 20px;
+    /* =========================================
+       DOUBT HEADER
+       ========================================= */
 
-}
+    .doubt-header {
 
+      background:
+        linear-gradient(
+          135deg,
+          var(--dark),
+          var(--dark-2)
+        );
 
-#status {
+      color: white;
 
-  text-align: center;
+      padding: 25px 22px 24px;
 
-  margin-top: 20px;
+      position: relative;
 
-  min-height: 30px;
+      overflow: hidden;
 
-}
+    }
 
 
-#uploadFrame {
+    .doubt-header::after {
 
-  display: none;
+      content: "";
 
-}
+      position: absolute;
 
-</style>
+      width: 180px;
+
+      height: 180px;
+
+      border-radius: 50%;
+
+      background:
+        rgba(59, 130, 246, 0.12);
+
+      right: -70px;
+
+      top: -80px;
+
+    }
+
+
+    .small-label {
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.5px;
+
+      color: #93a4bf;
+
+      margin-bottom: 7px;
+
+    }
+
+
+    .doubt-title {
+
+      font-size: 22px;
+
+      font-weight: 800;
+
+      line-height: 1.25;
+
+      margin: 0;
+
+      position: relative;
+
+      z-index: 1;
+
+    }
+
+
+    .doubt-section {
+
+      display: inline-flex;
+
+      margin-top: 12px;
+
+      padding: 6px 10px;
+
+      border-radius: 8px;
+
+      background: rgba(255,255,255,0.10);
+
+      color: #cbd5e1;
+
+      font-size: 12px;
+
+      font-weight: 700;
+
+      position: relative;
+
+      z-index: 1;
+
+    }
+
+
+    /* =========================================
+       DOUBT DETAILS
+       ========================================= */
+
+    .context {
+
+      padding: 20px 22px;
+
+      border-bottom: 1px solid var(--border);
+
+    }
+
+
+    .context-label {
+
+      font-size: 10px;
+
+      font-weight: 800;
+
+      text-transform: uppercase;
+
+      letter-spacing: 1.3px;
+
+      color: var(--muted);
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .doubt-text {
+
+      font-size: 15px;
+
+      line-height: 1.65;
+
+      color: #293548;
+
+      white-space: pre-wrap;
+
+    }
+
+
+    /* =========================================
+       RECORDING NAME
+       ========================================= */
+
+    .form-section {
+
+      padding: 20px 22px;
+
+    }
+
+
+    .input-label {
+
+      display: block;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      color: #4a5568;
+
+      margin-bottom: 8px;
+
+    }
+
+
+    .recording-input {
+
+      width: 100%;
+
+      border: 1px solid var(--border);
+
+      background: #f8fafc;
+
+      border-radius: 13px;
+
+      padding: 14px 15px;
+
+      font-size: 15px;
+
+      color: var(--text);
+
+      outline: none;
+
+      transition: all 0.2s ease;
+
+    }
+
+
+    .recording-input:focus {
+
+      background: white;
+
+      border-color: var(--primary);
+
+      box-shadow:
+        0 0 0 4px
+        rgba(37, 99, 235, 0.10);
+
+    }
+
+
+    /* =========================================
+       RECORDER AREA
+       ========================================= */
+
+    .recorder-area {
+
+      padding: 6px 22px 28px;
+
+      text-align: center;
+
+    }
+
+
+    .status-pill {
+
+      display: inline-flex;
+
+      align-items: center;
+
+      gap: 7px;
+
+      padding: 7px 12px;
+
+      border-radius: 999px;
+
+      background: #f1f5f9;
+
+      color: #64748b;
+
+      font-size: 11px;
+
+      font-weight: 800;
+
+      margin-bottom: 15px;
+
+    }
+
+
+    .status-dot {
+
+      width: 7px;
+
+      height: 7px;
+
+      border-radius: 50%;
+
+      background: #94a3b8;
+
+    }
+
+
+    .status-pill.recording {
+
+      background: #fee2e2;
+
+      color: #b91c1c;
+
+    }
+
+
+    .status-pill.recording .status-dot {
+
+      background: var(--danger);
+
+      animation: pulseDot 1s infinite;
+
+    }
+
+
+    .status-pill.success {
+
+      background: #dcfce7;
+
+      color: #15803d;
+
+    }
+
+
+    .status-pill.success .status-dot {
+
+      background: var(--success);
+
+    }
+
+
+    @keyframes pulseDot {
+
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+      50% {
+        transform: scale(1.5);
+        opacity: 0.5;
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+
+    }
+
+
+    /* =========================================
+       TIMER
+       ========================================= */
+
+    .timer {
+
+      font-size: 52px;
+
+      line-height: 1;
+
+      font-weight: 800;
+
+      letter-spacing: -2px;
+
+      color: var(--dark);
+
+      margin: 5px 0 22px;
+
+      font-variant-numeric: tabular-nums;
+
+    }
+
+
+    /* =========================================
+       RECORD BUTTON
+       ========================================= */
+
+    .record-button-wrap {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      position: relative;
+
+      margin-bottom: 18px;
+
+    }
+
+
+    .record-button-ring {
+
+      width: 116px;
+
+      height: 116px;
+
+      border-radius: 50%;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(239,68,68,0.13) 0%,
+          rgba(239,68,68,0.04) 55%,
+          transparent 56%
+        );
+
+      transition: all 0.3s ease;
+
+    }
+
+
+    .record-button {
+
+      width: 82px;
+
+      height: 82px;
+
+      border-radius: 50%;
+
+      border: none;
+
+      background:
+        linear-gradient(
+          145deg,
+          #ef4444,
+          #dc2626
+        );
+
+      color: white;
+
+      font-size: 30px;
+
+      cursor: pointer;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      box-shadow:
+        0 12px 28px
+        rgba(239, 68, 68, 0.30);
+
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    }
+
+
+    .record-button:active {
+
+      transform: scale(0.94);
+
+    }
+
+
+    .recording-active
+    .record-button-ring {
+
+      animation: recordingRing 1.4s infinite;
+
+    }
+
+
+    @keyframes recordingRing {
+
+      0% {
+
+        box-shadow:
+          0 0 0 0
+          rgba(239,68,68,0.25);
+
+      }
+
+      70% {
+
+        box-shadow:
+          0 0 0 22px
+          rgba(239,68,68,0);
+
+      }
+
+      100% {
+
+        box-shadow:
+          0 0 0 0
+          rgba(239,68,68,0);
+
+      }
+
+    }
+
+
+    .record-label {
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      color: #64748b;
+
+      margin-top: 4px;
+
+    }
+
+
+    /* =========================================
+       CONTROL BUTTONS
+       ========================================= */
+
+    .controls {
+
+      display: flex;
+
+      justify-content: center;
+
+      gap: 10px;
+
+      flex-wrap: wrap;
+
+    }
+
+
+    .control-button {
+
+      border: 1px solid var(--border);
+
+      background: white;
+
+      color: #334155;
+
+      border-radius: 11px;
+
+      padding: 10px 15px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: all 0.2s ease;
+
+    }
+
+
+    .control-button:hover {
+
+      background: #f8fafc;
+
+    }
+
+
+    .control-button:active {
+
+      transform: scale(0.97);
+
+    }
+
+
+    .control-button.stop {
+
+      color: #b91c1c;
+
+    }
+
+
+    /* =========================================
+       AUDIO PLAYER
+       ========================================= */
+
+    .audio-section {
+
+      display: none;
+
+      margin-top: 22px;
+
+      padding: 16px;
+
+      border-radius: 15px;
+
+      background: #f8fafc;
+
+      border: 1px solid var(--border);
+
+      text-align: left;
+
+    }
+
+
+    .audio-title {
+
+      display: flex;
+
+      align-items: center;
+
+      gap: 8px;
+
+      font-size: 12px;
+
+      font-weight: 800;
+
+      margin-bottom: 10px;
+
+      color: #334155;
+
+    }
+
+
+    audio {
+
+      width: 100%;
+
+      height: 42px;
+
+    }
+
+
+    /* =========================================
+       BOTTOM ACTIONS
+       ========================================= */
+
+    .actions {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 10px;
+
+      padding: 20px 22px 22px;
+
+      border-top: 1px solid var(--border);
+
+      background: #fcfdff;
+
+    }
+
+
+    .action-button {
+
+      border: none;
+
+      border-radius: 13px;
+
+      padding: 14px 12px;
+
+      font-size: 13px;
+
+      font-weight: 800;
+
+      cursor: pointer;
+
+      transition: all 0.2s ease;
+
+    }
+
+
+    .action-button:active {
+
+      transform: scale(0.98);
+
+    }
+
+
+    .save-button {
+
+      background:
+        linear-gradient(
+          135deg,
+          #16a34a,
+          #15803d
+        );
+
+      color: white;
+
+      box-shadow:
+        0 8px 18px
+        rgba(22, 163, 74, 0.18);
+
+    }
+
+
+    .history-button {
+
+      background: #edf2f7;
+
+      color: #334155;
+
+    }
+
+
+    /* =========================================
+       DISABLED
+       ========================================= */
+
+    button:disabled {
+
+      opacity: 0.42;
+
+      cursor: not-allowed;
+
+      transform: none !important;
+
+      box-shadow: none !important;
+
+    }
+
+
+    /* =========================================
+       FOOTER STATUS
+       ========================================= */
+
+    .footer-status {
+
+      text-align: center;
+
+      min-height: 24px;
+
+      padding: 0 20px 22px;
+
+      font-size: 12px;
+
+      color: var(--muted);
+
+      line-height: 1.5;
+
+    }
+
+
+    /* =========================================
+       MOBILE
+       ========================================= */
+
+    @media (max-width: 520px) {
+
+      body {
+
+        padding:
+          12px 10px
+          calc(14px + env(safe-area-inset-bottom));
+
+      }
+
+
+      .topbar {
+
+        margin-bottom: 12px;
+
+      }
+
+
+      .brand-icon {
+
+        width: 42px;
+
+        height: 42px;
+
+        border-radius: 13px;
+
+      }
+
+
+      .brand-title {
+
+        font-size: 15px;
+
+      }
+
+
+      .speaker-badge {
+
+        max-width: 145px;
+
+        font-size: 10px;
+
+        padding: 8px 10px;
+
+      }
+
+
+      .doubt-header {
+
+        padding: 22px 18px;
+
+      }
+
+
+      .doubt-title {
+
+        font-size: 20px;
+
+      }
+
+
+      .context,
+
+      .form-section,
+
+      .recorder-area {
+
+        padding-left: 18px;
+
+        padding-right: 18px;
+
+      }
+
+
+      .actions {
+
+        padding-left: 18px;
+
+        padding-right: 18px;
+
+      }
+
+
+      .timer {
+
+        font-size: 48px;
+
+      }
+
+
+      .record-button-ring {
+
+        width: 108px;
+
+        height: 108px;
+
+      }
+
+
+      .record-button {
+
+        width: 78px;
+
+        height: 78px;
+
+      }
+
+    }
+
+
+    /* =========================================
+       VERY SMALL PHONES
+       ========================================= */
+
+    @media (max-width: 360px) {
+
+      .speaker-badge {
+
+        max-width: 120px;
+
+      }
+
+
+      .speaker-badge span {
+
+        overflow: hidden;
+
+        text-overflow: ellipsis;
+
+        white-space: nowrap;
+
+      }
+
+
+      .actions {
+
+        grid-template-columns: 1fr;
+
+      }
+
+    }
+
+  </style>
 
 </head>
 
@@ -229,187 +1109,332 @@ audio {
 <body>
 
 
-<div class="container">
+<div class="app">
 
 
-<h1>
+  <!-- ======================================
+       TOP BAR
+       ====================================== -->
 
-🎙️ CA Doubt Recorder
-
-</h1>
+  <div class="topbar">
 
 
-<div class="speaker">
+    <div class="brand">
 
-Speaker:
+      <div class="brand-icon">
+        🎙️
+      </div>
 
-<span id="speaker"></span>
+
+      <div>
+
+        <div class="brand-title">
+          CA Doubt Recorder
+        </div>
+
+        <div class="brand-subtitle">
+          Capture your doubts. Keep learning.
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="speaker-badge">
+
+      <span class="speaker-dot"></span>
+
+      <span id="speaker">
+      </span>
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ======================================
+       MAIN CARD
+       ====================================== -->
+
+  <div class="main-card">
+
+
+    <!-- DOUBT HEADER -->
+
+    <div class="doubt-header">
+
+      <div class="small-label">
+        Current Doubt
+      </div>
+
+
+      <h1
+        class="doubt-title"
+        id="subject"
+      >
+        —
+      </h1>
+
+
+      <div
+        class="doubt-section"
+        id="section"
+      >
+        —
+      </div>
+
+    </div>
+
+
+
+    <!-- DOUBT TEXT -->
+
+    <div class="context">
+
+      <div class="context-label">
+        Your Question
+      </div>
+
+
+      <div
+        class="doubt-text"
+        id="doubt"
+      >
+        —
+      </div>
+
+    </div>
+
+
+
+    <!-- RECORDING NAME -->
+
+    <div class="form-section">
+
+      <label
+        class="input-label"
+        for="recordingName"
+      >
+        Recording Name
+      </label>
+
+
+      <input
+
+        id="recordingName"
+
+        class="recording-input"
+
+        type="text"
+
+        placeholder="Give this recording a name"
+
+        autocomplete="off"
+
+      >
+
+    </div>
+
+
+
+    <!-- RECORDER -->
+
+    <div
+      class="recorder-area"
+      id="recorderArea"
+    >
+
+
+      <div
+        class="status-pill"
+        id="statusPill"
+      >
+
+        <span
+          class="status-dot"
+          id="statusDot"
+        ></span>
+
+        <span id="statusText">
+          Ready to record
+        </span>
+
+      </div>
+
+
+
+      <div
+        class="timer"
+        id="timer"
+      >
+        00:00
+      </div>
+
+
+
+      <div
+        class="record-button-wrap"
+        id="recordButtonWrap"
+      >
+
+        <div class="record-button-ring">
+
+          <button
+
+            id="startBtn"
+
+            class="record-button"
+
+            onclick="startRecording()"
+
+            title="Start Recording"
+
+          >
+            🎙️
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div
+        class="record-label"
+        id="recordLabel"
+      >
+        Tap to start recording
+      </div>
+
+
+
+      <div class="controls">
+
+
+        <button
+
+          id="stopBtn"
+
+          class="control-button stop"
+
+          onclick="stopRecording()"
+
+          disabled
+
+        >
+          ⏹ Stop
+        </button>
+
+
+        <button
+
+          id="resetBtn"
+
+          class="control-button"
+
+          onclick="resetRecorder()"
+
+          disabled
+
+        >
+          🔄 Reset
+        </button>
+
+
+      </div>
+
+
+
+      <!-- AUDIO PLAYER -->
+
+      <div
+        class="audio-section"
+        id="audioSection"
+      >
+
+        <div class="audio-title">
+
+          <span>🎧</span>
+
+          <span>
+            Listen before saving
+          </span>
+
+        </div>
+
+
+        <audio
+
+          id="audioPlayer"
+
+          controls
+
+        ></audio>
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- ACTION BUTTONS -->
+
+    <div class="actions">
+
+
+      <button
+
+        id="saveBtn"
+
+        class="action-button save-button"
+
+        onclick="saveRecording()"
+
+        disabled
+
+      >
+        ☁️ Save to Google Drive
+      </button>
+
+
+      <button
+
+        id="historyBtn"
+
+        class="action-button history-button"
+
+        onclick="openHistory()"
+
+      >
+        📜 Voice History
+      </button>
+
+
+    </div>
+
+
+
+    <!-- STATUS -->
+
+    <div
+      class="footer-status"
+      id="status"
+    >
+      Ready to record.
+    </div>
+
+
+  </div>
+
 
 </div>
 
 
-<div class="context">
 
-
-<div>
-
-<span class="label">
-Subject:
-</span>
-
-<span id="subject"></span>
-
-</div>
-
-
-<div>
-
-<span class="label">
-Section:
-</span>
-
-<span id="section"></span>
-
-</div>
-
-
-<div>
-
-<span class="label">
-Doubt:
-</span>
-
-<span id="doubt"></span>
-
-</div>
-
-
-</div>
-
-
-<label class="label">
-
-Recording Name
-
-</label>
-
-
-<input
-
-  id="recordingName"
-
-  type="text"
-
-  placeholder=
-  "Enter a name for this recording"
-
-
->
-
-
-<div id="timer">
-
-00:00
-
-</div>
-
-
-<div class="buttons">
-
-
-<button
-
-  id="startBtn"
-
-  onclick=
-  "startRecording()"
-
->
-
-🎙️ Start Recording
-
-</button>
-
-
-<button
-
-  id="stopBtn"
-
-  onclick=
-  "stopRecording()"
-
-  disabled
-
->
-
-⏹️ Stop
-
-</button>
-
-
-<button
-
-  id="resetBtn"
-
-  onclick=
-  "resetRecorder()"
-
-  disabled
-
->
-
-🔄 Reset
-
-</button>
-
-
-</div>
-
-
-<audio
-
-  id="audioPlayer"
-
-  controls
-
-  style="display:none;">
-
-</audio>
-
-
-<div class="buttons">
-
-
-<button
-
-  id="saveBtn"
-
-  onclick=
-  "saveRecording()"
-
-  disabled
-
->
-
-☁️ Save to Google Drive
-
-</button>
-<button
-  id="historyBtn"
-  onclick="openHistory()"
->
-  📜 History
-</button>
-
-</div>
-
-
-<div id="status">
-
-Ready to record.
-
-</div>
-
+<!-- Hidden upload frame -->
 
 <iframe
 
@@ -417,27 +1442,31 @@ Ready to record.
 
   id="uploadFrame"
 
->
+  style="display:none;"
 
-</iframe>
-
-
-</div>
+></iframe>
 
 
 
 <script>
 
 
-/***************************************************
- * PUT YOUR NEW APPS SCRIPT /exec URL HERE
- ***************************************************/
+/* =====================================================
+   APPS SCRIPT URL
+   ===================================================== */
 
 const APPS_SCRIPT_URL =
 
   'https://script.google.com/macros/s/AKfycbybRayDZ42dKvOauNAzVCYcP2YSNhQgUesV2KD4ianQSz1daTLz8s_zfL3Pu9cxmzX2yQ/exec';
 
+
+
+/* =====================================================
+   OPEN HISTORY
+   ===================================================== */
+
 function openHistory() {
+
 
   if (!APPS_SCRIPT_URL) {
 
@@ -467,9 +1496,12 @@ function openHistory() {
   );
 
 }
-/***************************************************
- * READ INFORMATION FROM GOOGLE SHEET
- ***************************************************/
+
+
+
+/* =====================================================
+   READ GOOGLE SHEET INFORMATION
+   ===================================================== */
 
 const params =
 
@@ -505,9 +1537,10 @@ const doubt =
   params.get('doubt') || '';
 
 
-/***************************************************
- * SHOW CONTEXT
- ***************************************************/
+
+/* =====================================================
+   SHOW INFORMATION
+   ===================================================== */
 
 document.getElementById(
   'speaker'
@@ -517,24 +1550,28 @@ document.getElementById(
 document.getElementById(
   'subject'
 ).innerText =
-  subject || '—';
+
+  subject || 'CA Doubt';
 
 
 document.getElementById(
   'section'
 ).innerText =
-  section || '—';
+
+  section || 'No section specified';
 
 
 document.getElementById(
   'doubt'
 ).innerText =
-  doubt || '—';
+
+  doubt || 'No doubt text provided';
 
 
-/***************************************************
- * DEFAULT RECORDING NAME
- ***************************************************/
+
+/* =====================================================
+   DEFAULT RECORDING NAME
+   ===================================================== */
 
 document.getElementById(
   'recordingName'
@@ -561,9 +1598,10 @@ document.getElementById(
   );
 
 
-/***************************************************
- * RECORDING VARIABLES
- ***************************************************/
+
+/* =====================================================
+   RECORDING VARIABLES
+   ===================================================== */
 
 let mediaRecorder = null;
 
@@ -576,9 +1614,115 @@ let timerInterval = null;
 let seconds = 0;
 
 
-/***************************************************
- * START RECORDING
- ***************************************************/
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const recorderArea =
+
+  document.getElementById(
+    'recorderArea'
+  );
+
+
+const statusPill =
+
+  document.getElementById(
+    'statusPill'
+  );
+
+
+const statusText =
+
+  document.getElementById(
+    'statusText'
+  );
+
+
+const statusDot =
+
+  document.getElementById(
+    'statusDot'
+  );
+
+
+const recordLabel =
+
+  document.getElementById(
+    'recordLabel'
+  );
+
+
+const audioSection =
+
+  document.getElementById(
+    'audioSection'
+  );
+
+
+const audioPlayer =
+
+  document.getElementById(
+    'audioPlayer'
+  );
+
+
+
+/* =====================================================
+   STATUS UI
+   ===================================================== */
+
+function setStatus(
+  message,
+  type = 'ready'
+) {
+
+
+  statusText.innerText =
+    message;
+
+
+  statusPill.classList.remove(
+    'recording',
+    'success'
+  );
+
+
+  if (
+    type === 'recording'
+  ) {
+
+    statusPill.classList.add(
+      'recording'
+    );
+
+  }
+
+
+  if (
+    type === 'success'
+  ) {
+
+    statusPill.classList.add(
+      'success'
+    );
+
+  }
+
+
+  document.getElementById(
+    'status'
+  ).innerText =
+    message;
+
+}
+
+
+
+/* =====================================================
+   START RECORDING
+   ===================================================== */
 
 async function startRecording() {
 
@@ -653,18 +1797,11 @@ async function startRecording() {
           );
 
 
-        const player =
-
-          document.getElementById(
-            'audioPlayer'
-          );
-
-
-        player.src =
+        audioPlayer.src =
           audioURL;
 
 
-        player.style.display =
+        audioSection.style.display =
           'block';
 
 
@@ -673,11 +1810,14 @@ async function startRecording() {
         ).disabled = false;
 
 
-        document.getElementById(
-          'status'
-        ).innerText =
+        setStatus(
+          'Recording finished. Listen before saving.',
+          'success'
+        );
 
-          '✅ Recording finished. Listen before saving.';
+
+        recordLabel.innerText =
+          'Recording ready to save';
 
       };
 
@@ -700,10 +1840,22 @@ async function startRecording() {
     ).disabled = true;
 
 
+    recorderArea.classList.add(
+      'recording-active'
+    );
+
+
+    recordLabel.innerText =
+      'Recording in progress...';
+
+
     seconds = 0;
 
 
-    updateTimer();
+    document.getElementById(
+      'timer'
+    ).innerText =
+      '00:00';
 
 
     timerInterval =
@@ -717,12 +1869,10 @@ async function startRecording() {
       );
 
 
-    document.getElementById(
-      'status'
-    ).innerText =
-
-      '🔴 Recording...';
-
+    setStatus(
+      'Recording...',
+      'recording'
+    );
 
   }
 
@@ -730,20 +1880,28 @@ async function startRecording() {
   catch(error) {
 
 
-    document.getElementById(
-      'status'
-    ).innerText =
+    console.error(error);
 
-      '❌ Microphone permission failed.';
+
+    setStatus(
+      'Microphone permission failed.',
+      'ready'
+    );
+
+
+    alert(
+      'Please allow microphone access and try again.'
+    );
 
   }
 
 }
 
 
-/***************************************************
- * STOP RECORDING
- ***************************************************/
+
+/* =====================================================
+   STOP RECORDING
+   ===================================================== */
 
 function stopRecording() {
 
@@ -792,12 +1950,18 @@ function stopRecording() {
     'resetBtn'
   ).disabled = false;
 
+
+  recorderArea.classList.remove(
+    'recording-active'
+  );
+
 }
 
 
-/***************************************************
- * TIMER
- ***************************************************/
+
+/* =====================================================
+   TIMER
+   ===================================================== */
 
 function updateTimer() {
 
@@ -836,9 +2000,10 @@ function updateTimer() {
 }
 
 
-/***************************************************
- * RESET
- ***************************************************/
+
+/* =====================================================
+   RESET
+   ===================================================== */
 
 function resetRecorder() {
 
@@ -848,16 +2013,12 @@ function resetRecorder() {
   audioBlob = null;
 
 
-  const player =
+  audioPlayer.pause();
 
-    document.getElementById(
-      'audioPlayer'
-    );
+  audioPlayer.src = '';
 
 
-  player.src = '';
-
-  player.style.display =
+  audioSection.style.display =
     'none';
 
 
@@ -865,12 +2026,6 @@ function resetRecorder() {
     'timer'
   ).innerText =
     '00:00';
-
-
-  document.getElementById(
-    'status'
-  ).innerText =
-    'Ready to record.';
 
 
   document.getElementById(
@@ -893,14 +2048,30 @@ function resetRecorder() {
   ).disabled = true;
 
 
+  recorderArea.classList.remove(
+    'recording-active'
+  );
+
+
+  recordLabel.innerText =
+    'Tap to start recording';
+
+
+  setStatus(
+    'Ready to record.',
+    'ready'
+  );
+
+
   seconds = 0;
 
 }
 
 
-/***************************************************
- * SAVE RECORDING
- ***************************************************/
+
+/* =====================================================
+   SAVE RECORDING
+   ===================================================== */
 
 function saveRecording() {
 
@@ -940,11 +2111,10 @@ function saveRecording() {
   ).disabled = true;
 
 
-  document.getElementById(
-    'status'
-  ).innerText =
-
-    '⏳ Saving to Google Drive...';
+  setStatus(
+    'Saving to Google Drive...',
+    'ready'
+  );
 
 
   const reader =
@@ -982,9 +2152,8 @@ function saveRecording() {
         'uploadFrame';
 
 
-      /***********************************************
-       * SEND AUDIO
-       ***********************************************/
+
+      /* AUDIO */
 
       addField(
         form,
@@ -993,25 +2162,28 @@ function saveRecording() {
       );
 
 
-      /***********************************************
-       * SEND RECORDING NAME
-       ***********************************************/
+
+      /* RECORDING NAME */
 
       addField(
         form,
         'recordingName',
         recordingName
       );
+
+
+
+      /* FILE NAME */
+
       addField(
-  form,
-  'fileName',
-  recordingName + '.webm'
-);
+        form,
+        'fileName',
+        recordingName + '.webm'
+      );
 
 
-      /***********************************************
-       * SEND ROW
-       ***********************************************/
+
+      /* ROW */
 
       addField(
         form,
@@ -1020,9 +2192,8 @@ function saveRecording() {
       );
 
 
-      /***********************************************
-       * SEND SPEAKER
-       ***********************************************/
+
+      /* SPEAKER */
 
       addField(
         form,
@@ -1031,9 +2202,8 @@ function saveRecording() {
       );
 
 
-      /***********************************************
-       * SEND CONTEXT
-       ***********************************************/
+
+      /* SUBJECT */
 
       addField(
         form,
@@ -1042,12 +2212,18 @@ function saveRecording() {
       );
 
 
+
+      /* SECTION */
+
       addField(
         form,
         'section',
         section
       );
 
+
+
+      /* DOUBT */
 
       addField(
         form,
@@ -1061,13 +2237,6 @@ function saveRecording() {
       );
 
 
-      /***********************************************
-       * WHEN GOOGLE RESPONDS
-       *
-       * The iframe load means Apps Script has
-       * returned its response.
-       ***********************************************/
-
       const iframe =
 
         document.getElementById(
@@ -1080,11 +2249,15 @@ function saveRecording() {
         function() {
 
 
-          document.getElementById(
-            'status'
-          ).innerText =
+          setStatus(
+            '✅ Saved successfully to Google Drive.',
+            'success'
+          );
 
-            '✅ Saved to Google Drive';
+
+          document.getElementById(
+            'saveBtn'
+          ).disabled = false;
 
 
         };
@@ -1105,9 +2278,10 @@ function saveRecording() {
 }
 
 
-/***************************************************
- * ADD HIDDEN FIELD
- ***************************************************/
+
+/* =====================================================
+   ADD HIDDEN FIELD
+   ===================================================== */
 
 function addField(
   form,
