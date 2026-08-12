@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>CA Doubt Voice Recorder</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 550px;
+      margin: auto;
+      background: white;
+      padding: 35px;
+      border-radius: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 28px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+    }
+
+    #timer {
+      font-size: 42px;
+      font-weight: bold;
+      margin: 25px 0;
+    }
+
+    button {
+      border: none;
+      border-radius: 10px;
+      padding: 14px 22px;
+      margin: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    #startBtn {
+      background: #d93025;
+      color: white;
+    }
+
+    #stopBtn {
+      background: #444;
+      color: white;
+    }
+
+    #resetBtn {
+      background: #777;
+      color: white;
+    }
+
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+
+    #status {
+      margin-top: 25px;
+      min-height: 25px;
+      color: #555;
+    }
+
+    audio {
+      width: 100%;
+      margin-top: 25px;
+    }
+
+    .recording {
+      color: #d93025;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🎙️ CA Doubt Recorder</h1>
+
+  <div class="subtitle">
+    Record your doubt and listen to it later.
+  </div>
+
+  <div id="timer">00:00</div>
+
+  <button id="startBtn" onclick="startRecording()">
+    🎙️ Start Recording
+  </button>
+
+  <button id="stopBtn" onclick="stopRecording()" disabled>
+    ⏹️ Stop
+  </button>
+
+  <button id="resetBtn" onclick="resetRecorder()" disabled>
+    🔄 Reset
+  </button>
+
+  <div id="status">
+    Ready to record.
+  </div>
+
+  <audio id="audioPlayer" controls style="display:none;"></audio>
+
+</div>
+
+
+<script>
+
+let mediaRecorder = null;
+let audioChunks = [];
+let audioBlob = null;
+
+let timerInterval = null;
+let seconds = 0;
+
+
+// START RECORDING
+async function startRecording() {
+
+  try {
+
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true
+    });
+
+    audioChunks = [];
+
+    mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.ondataavailable = function(event) {
+
+      if (event.data.size > 0) {
+        audioChunks.push(event.data);
+      }
+
+    };
+
+    mediaRecorder.onstop = function() {
+
+      audioBlob = new Blob(
+        audioChunks,
+        { type: 'audio/webm' }
+      );
+
+      const audioURL = URL.createObjectURL(audioBlob);
+
+      const player = document.getElementById("audioPlayer");
+
+      player.src = audioURL;
+      player.style.display = "block";
+
+      document.getElementById("status").innerText =
+        "✅ Recording finished. Press ▶️ below to listen.";
+
+    };
+
+    mediaRecorder.start();
+
+    // Turn off microphone buttons appropriately
+    document.getElementById("startBtn").disabled = true;
+    document.getElementById("stopBtn").disabled = false;
+    document.getElementById("resetBtn").disabled = true;
+
+    seconds = 0;
+
+    updateTimer();
+
+    timerInterval = setInterval(updateTimer, 1000);
+
+    document.getElementById("status").innerHTML =
+      '<span class="recording">🔴 Recording...</span>';
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    document.getElementById("status").innerText =
+      "❌ Microphone access was denied. Please allow microphone access in your browser.";
+
+  }
+
+}
+
+
+// STOP RECORDING
+function stopRecording() {
+
+  if (
+    mediaRecorder &&
+    mediaRecorder.state !== "inactive"
+  ) {
+
+    mediaRecorder.stop();
+
+    // Stop microphone completely
+    mediaRecorder.stream.getTracks().forEach(
+      track => track.stop()
+    );
+
+  }
+
+  clearInterval(timerInterval);
+
+  document.getElementById("startBtn").disabled = true;
+  document.getElementById("stopBtn").disabled = true;
+  document.getElementById("resetBtn").disabled = false;
+
+}
+
+
+// TIMER
+function updateTimer() {
+
+  seconds++;
+
+  const minutes = Math.floor(seconds / 60);
+
+  const secs = seconds % 60;
+
+  document.getElementById("timer").innerText =
+    String(minutes).padStart(2, "0")
+    + ":"
+    + String(secs).padStart(2, "0");
+
+}
+
+
+// RESET
+function resetRecorder() {
+
+  audioChunks = [];
+  audioBlob = null;
+
+  document.getElementById("audioPlayer").style.display = "none";
+
+  document.getElementById("audioPlayer").src = "";
+
+  document.getElementById("timer").innerText = "00:00";
+
+  document.getElementById("status").innerText =
+    "Ready to record.";
+
+  document.getElementById("startBtn").disabled = false;
+  document.getElementById("stopBtn").disabled = true;
+  document.getElementById("resetBtn").disabled = true;
+
+  seconds = 0;
+
+}
+
+</script>
+
+</body>
+</html>
