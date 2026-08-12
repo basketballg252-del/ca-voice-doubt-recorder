@@ -394,7 +394,12 @@ Recording Name
 ☁️ Save to Google Drive
 
 </button>
-
+<button
+  id="historyBtn"
+  onclick="openHistory()"
+>
+  📜 History
+</button>
 
 </div>
 
@@ -432,7 +437,36 @@ const APPS_SCRIPT_URL =
 
   'https://script.google.com/macros/s/AKfycbybRayDZ42dKvOauNAzVCYcP2YSNhQgUesV2KD4ianQSz1daTLz8s_zfL3Pu9cxmzX2yQ/exec';
 
+function openHistory() {
 
+  if (!APPS_SCRIPT_URL) {
+
+    alert(
+      'Apps Script URL is missing.'
+    );
+
+    return;
+
+  }
+
+
+  const historyURL =
+
+    APPS_SCRIPT_URL +
+
+    '?action=history&speaker=' +
+
+    encodeURIComponent(
+      speaker
+    );
+
+
+  window.open(
+    historyURL,
+    '_blank'
+  );
+
+}
 /***************************************************
  * READ INFORMATION FROM GOOGLE SHEET
  ***************************************************/
