@@ -3,1105 +3,1226 @@
 
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
-  >
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
-  <meta
-    name="theme-color"
-    content="#0b1220"
-  >
+<meta name="theme-color" content="#080d18">
 
-  <title>CA Doubt Voice Recorder</title>
+<title>CA Doubt Voice Recorder</title>
 
 
-  <style>
+<style>
 
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+/* =========================================================
+   RESET
+   ========================================================= */
 
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
-    :root {
 
-      --bg: #eef2f7;
-      --card: #ffffff;
-      --dark: #0b1220;
-      --dark-2: #151f32;
-      --text: #172033;
-      --muted: #718096;
-      --border: #e5e9f0;
+html,
+body {
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
 
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
 
-      --danger: #ef4444;
-      --danger-dark: #dc2626;
+body {
 
-      --success: #16a34a;
-      --success-dark: #15803d;
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Arial,
+    sans-serif;
 
-      --shadow:
-        0 18px 50px rgba(15, 23, 42, 0.10);
+  color: #182235;
 
-      --radius: 22px;
+  background:
 
-    }
+    radial-gradient(
+      circle at 15% 5%,
+      rgba(99,102,241,.16),
+      transparent 28%
+    ),
 
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(14,165,233,.12),
+      transparent 25%
+    ),
 
-    html {
-      min-height: 100%;
-    }
+    linear-gradient(
+      135deg,
+      #f8fafc,
+      #eef2f7
+    );
 
+  min-height: 100vh;
 
-    body {
+  padding:
+    10px
+    14px
+    calc(10px + env(safe-area-inset-bottom));
 
-      margin: 0;
+}
 
-      min-height: 100vh;
 
-      font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Roboto,
-        Arial,
-        sans-serif;
+:root {
 
-      background:
-        radial-gradient(
-          circle at top left,
-          rgba(37, 99, 235, 0.12),
-          transparent 35%
-        ),
-        linear-gradient(
-          180deg,
-          #f8fafc 0%,
-          var(--bg) 100%
-        );
+  --navy: #080d18;
 
-      color: var(--text);
+  --navy2: #111a2c;
 
-      padding:
-        24px 16px
-        calc(24px + env(safe-area-inset-bottom));
+  --blue: #3b82f6;
 
-    }
+  --purple: #7c3aed;
 
+  --red: #ef4444;
 
-    .app {
+  --green: #16a34a;
 
-      width: 100%;
+  --text: #182235;
 
-      max-width: 720px;
+  --muted: #718096;
 
-      margin: 0 auto;
+  --line: #e5e9f0;
 
-    }
+  --white: #ffffff;
 
+}
 
-    /* =========================================
-       TOP HEADER
-       ========================================= */
 
-    .topbar {
+/* =========================================================
+   APP
+   ========================================================= */
 
-      display: flex;
+.app {
 
-      align-items: center;
+  width: 100%;
 
-      justify-content: space-between;
+  max-width: 760px;
 
-      margin-bottom: 18px;
+  margin: 0 auto;
 
-    }
+}
 
 
-    .brand {
+/* =========================================================
+   TOP BAR
+   ========================================================= */
 
-      display: flex;
+.topbar {
 
-      align-items: center;
+  height: 50px;
 
-      gap: 12px;
+  display: flex;
 
-    }
+  align-items: center;
 
+  justify-content: space-between;
 
-    .brand-icon {
+  margin-bottom: 8px;
 
-      width: 46px;
+}
 
-      height: 46px;
 
-      border-radius: 15px;
+.brand {
 
-      display: flex;
+  display: flex;
 
-      align-items: center;
+  align-items: center;
 
-      justify-content: center;
+  gap: 9px;
 
-      font-size: 23px;
+}
 
-      background:
-        linear-gradient(
-          135deg,
-          #2563eb,
-          #7c3aed
-        );
 
-      color: white;
+.brand-icon {
 
-      box-shadow:
-        0 10px 25px
-        rgba(37, 99, 235, 0.25);
+  width: 38px;
 
-    }
+  height: 38px;
 
+  border-radius: 12px;
 
-    .brand-title {
+  display: flex;
 
-      font-size: 17px;
+  align-items: center;
 
-      font-weight: 800;
+  justify-content: center;
 
-      letter-spacing: -0.3px;
+  font-size: 19px;
 
-    }
+  color: white;
 
+  background:
 
-    .brand-subtitle {
+    linear-gradient(
+      135deg,
+      #2563eb,
+      #7c3aed
+    );
 
-      font-size: 11px;
+  box-shadow:
 
-      color: var(--muted);
+    0 6px 16px
+    rgba(37,99,235,.22);
 
-      margin-top: 2px;
+}
 
-    }
 
+.brand-title {
 
-    /* =========================================
-       SPEAKER BADGE
-       ========================================= */
+  font-size: 14px;
 
-    .speaker-badge {
+  font-weight: 850;
 
-      display: inline-flex;
+  letter-spacing: -.25px;
 
-      align-items: center;
+}
 
-      gap: 7px;
 
-      padding: 9px 13px;
+.brand-subtitle {
 
-      border-radius: 999px;
+  font-size: 9px;
 
-      background: #e8eefc;
+  color: #7a879a;
 
-      color: #244c9b;
+  margin-top: 1px;
 
-      font-size: 12px;
+}
 
-      font-weight: 800;
 
-      max-width: 180px;
+.speaker-badge {
 
-    }
+  display: flex;
 
+  align-items: center;
 
-    .speaker-dot {
+  gap: 5px;
 
-      width: 8px;
+  max-width: 150px;
 
-      height: 8px;
+  padding: 6px 9px;
 
-      border-radius: 50%;
+  border-radius: 999px;
 
-      background: #2563eb;
+  background: #e8efff;
 
-      flex-shrink: 0;
+  color: #2856a8;
 
-    }
+  font-size: 9px;
 
+  font-weight: 800;
 
-    /* =========================================
-       MAIN CARD
-       ========================================= */
+}
 
-    .main-card {
 
-      background: rgba(255,255,255,0.96);
+.speaker-dot {
 
-      border: 1px solid rgba(255,255,255,0.8);
+  width: 6px;
 
-      border-radius: var(--radius);
+  height: 6px;
 
-      box-shadow: var(--shadow);
+  border-radius: 50%;
 
-      overflow: hidden;
+  background: #3b82f6;
 
-    }
+}
 
 
-    /* =========================================
-       DOUBT HEADER
-       ========================================= */
+/* =========================================================
+   MAIN CARD
+   ========================================================= */
 
-    .doubt-header {
+.main-card {
 
-      background:
-        linear-gradient(
-          135deg,
-          var(--dark),
-          var(--dark-2)
-        );
+  background: rgba(255,255,255,.96);
 
-      color: white;
+  border: 1px solid rgba(255,255,255,.8);
 
-      padding: 25px 22px 24px;
+  border-radius: 20px;
 
-      position: relative;
+  overflow: hidden;
 
-      overflow: hidden;
+  box-shadow:
 
-    }
+    0 15px 45px
+    rgba(15,23,42,.10);
 
+}
 
-    .doubt-header::after {
 
-      content: "";
+/* =========================================================
+   HEADER
+   ========================================================= */
 
-      position: absolute;
+.doubt-header {
 
-      width: 180px;
+  min-height: 94px;
 
-      height: 180px;
+  padding: 15px 18px;
 
-      border-radius: 50%;
+  color: white;
 
-      background:
-        rgba(59, 130, 246, 0.12);
+  background:
 
-      right: -70px;
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(99,102,241,.30),
+      transparent 28%
+    ),
 
-      top: -80px;
+    linear-gradient(
+      135deg,
+      #080d18,
+      #121d32
+    );
 
-    }
+  position: relative;
 
+  overflow: hidden;
 
-    .small-label {
+}
 
-      font-size: 10px;
 
-      font-weight: 800;
+.doubt-header::before {
 
-      text-transform: uppercase;
+  content: "";
 
-      letter-spacing: 1.5px;
+  position: absolute;
 
-      color: #93a4bf;
+  width: 130px;
 
-      margin-bottom: 7px;
+  height: 130px;
 
-    }
+  border-radius: 50%;
 
+  right: -60px;
 
-    .doubt-title {
+  bottom: -90px;
 
-      font-size: 22px;
+  border:
+    1px solid
+    rgba(255,255,255,.08);
 
-      font-weight: 800;
+}
 
-      line-height: 1.25;
 
-      margin: 0;
+.small-label {
 
-      position: relative;
+  font-size: 8px;
 
-      z-index: 1;
+  font-weight: 850;
 
-    }
+  text-transform: uppercase;
 
+  letter-spacing: 1.4px;
 
-    .doubt-section {
+  color: #8796b0;
 
-      display: inline-flex;
+  margin-bottom: 4px;
 
-      margin-top: 12px;
+}
 
-      padding: 6px 10px;
 
-      border-radius: 8px;
+.doubt-title {
 
-      background: rgba(255,255,255,0.10);
+  position: relative;
 
-      color: #cbd5e1;
+  margin: 0;
 
-      font-size: 12px;
+  font-size: 18px;
 
-      font-weight: 700;
+  line-height: 1.15;
 
-      position: relative;
+  font-weight: 850;
 
-      z-index: 1;
+  letter-spacing: -.3px;
 
-    }
+}
 
 
-    /* =========================================
-       DOUBT DETAILS
-       ========================================= */
+.doubt-section {
 
-    .context {
+  display: inline-flex;
 
-      padding: 20px 22px;
+  margin-top: 7px;
 
-      border-bottom: 1px solid var(--border);
+  padding: 4px 8px;
 
-    }
+  border-radius: 6px;
 
+  background:
+    rgba(255,255,255,.09);
 
-    .context-label {
+  color: #b8c5d9;
 
-      font-size: 10px;
+  font-size: 9px;
 
-      font-weight: 800;
+  font-weight: 750;
 
-      text-transform: uppercase;
+}
 
-      letter-spacing: 1.3px;
 
-      color: var(--muted);
+/* =========================================================
+   DOUBT AREA
+   ========================================================= */
 
-      margin-bottom: 8px;
+.context {
 
-    }
+  padding: 11px 18px;
 
+  border-bottom: 1px solid var(--line);
 
-    .doubt-text {
+}
 
-      font-size: 15px;
 
-      line-height: 1.65;
+.context-label {
 
-      color: #293548;
+  font-size: 8px;
 
-      white-space: pre-wrap;
+  font-weight: 850;
 
-    }
+  letter-spacing: 1.2px;
 
+  text-transform: uppercase;
 
-    /* =========================================
-       RECORDING NAME
-       ========================================= */
+  color: #8a96a8;
 
-    .form-section {
+  margin-bottom: 4px;
 
-      padding: 20px 22px;
+}
 
-    }
 
+.doubt-text {
 
-    .input-label {
+  font-size: 11px;
 
-      display: block;
+  line-height: 1.4;
 
-      font-size: 12px;
+  color: #3c4758;
 
-      font-weight: 800;
+  max-height: 48px;
 
-      color: #4a5568;
+  overflow-y: auto;
 
-      margin-bottom: 8px;
+  white-space: pre-wrap;
 
-    }
+}
 
 
-    .recording-input {
+/* =========================================================
+   RECORDING NAME
+   ========================================================= */
 
-      width: 100%;
+.form-section {
 
-      border: 1px solid var(--border);
+  padding: 10px 18px;
 
-      background: #f8fafc;
+}
 
-      border-radius: 13px;
 
-      padding: 14px 15px;
+.input-label {
 
-      font-size: 15px;
+  display: block;
 
-      color: var(--text);
+  font-size: 9px;
 
-      outline: none;
+  font-weight: 800;
 
-      transition: all 0.2s ease;
+  color: #657185;
 
-    }
+  margin-bottom: 5px;
 
+}
 
-    .recording-input:focus {
 
-      background: white;
+.recording-input {
 
-      border-color: var(--primary);
+  width: 100%;
 
-      box-shadow:
-        0 0 0 4px
-        rgba(37, 99, 235, 0.10);
+  height: 36px;
 
-    }
+  border: 1px solid var(--line);
 
+  background: #f8fafc;
 
-    /* =========================================
-       RECORDER AREA
-       ========================================= */
+  border-radius: 9px;
 
-    .recorder-area {
+  padding: 0 11px;
 
-      padding: 6px 22px 28px;
+  font-size: 11px;
 
-      text-align: center;
+  color: var(--text);
 
-    }
+  outline: none;
 
+  transition: .2s;
 
-    .status-pill {
+}
 
-      display: inline-flex;
 
-      align-items: center;
+.recording-input:focus {
 
-      gap: 7px;
+  background: white;
 
-      padding: 7px 12px;
+  border-color: var(--blue);
 
-      border-radius: 999px;
+  box-shadow:
+    0 0 0 3px
+    rgba(59,130,246,.10);
 
-      background: #f1f5f9;
+}
 
-      color: #64748b;
 
-      font-size: 11px;
+/* =========================================================
+   RECORDER
+   ========================================================= */
 
-      font-weight: 800;
+.recorder-area {
 
-      margin-bottom: 15px;
+  text-align: center;
 
-    }
+  padding:
+    2px
+    18px
+    13px;
 
+}
 
-    .status-dot {
 
-      width: 7px;
+.status-pill {
 
-      height: 7px;
+  display: inline-flex;
 
-      border-radius: 50%;
+  align-items: center;
 
-      background: #94a3b8;
+  gap: 5px;
 
-    }
+  padding: 4px 9px;
 
+  border-radius: 999px;
 
-    .status-pill.recording {
+  background: #f1f5f9;
 
-      background: #fee2e2;
+  color: #69778a;
 
-      color: #b91c1c;
+  font-size: 8px;
 
-    }
+  font-weight: 800;
 
+}
 
-    .status-pill.recording .status-dot {
 
-      background: var(--danger);
+.status-dot {
 
-      animation: pulseDot 1s infinite;
+  width: 5px;
 
-    }
+  height: 5px;
 
+  border-radius: 50%;
 
-    .status-pill.success {
+  background: #94a3b8;
 
-      background: #dcfce7;
+}
 
-      color: #15803d;
 
-    }
+.status-pill.recording {
 
+  color: #b91c1c;
 
-    .status-pill.success .status-dot {
+  background: #fee2e2;
 
-      background: var(--success);
+}
 
-    }
 
+.status-pill.recording .status-dot {
 
-    @keyframes pulseDot {
+  background: var(--red);
 
-      0% {
-        transform: scale(1);
-        opacity: 1;
-      }
+  animation: pulse 1s infinite;
 
-      50% {
-        transform: scale(1.5);
-        opacity: 0.5;
-      }
+}
 
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
 
-    }
+.status-pill.success {
 
+  color: #15803d;
 
-    /* =========================================
-       TIMER
-       ========================================= */
+  background: #dcfce7;
 
-    .timer {
+}
 
-      font-size: 52px;
 
-      line-height: 1;
+.status-pill.success .status-dot {
 
-      font-weight: 800;
+  background: var(--green);
 
-      letter-spacing: -2px;
+}
 
-      color: var(--dark);
 
-      margin: 5px 0 22px;
+@keyframes pulse {
 
-      font-variant-numeric: tabular-nums;
+  50% {
+    transform: scale(1.6);
+    opacity: .45;
+  }
 
-    }
+}
 
 
-    /* =========================================
-       RECORD BUTTON
-       ========================================= */
+/* =========================================================
+   TIMER
+   ========================================================= */
 
-    .record-button-wrap {
+.timer {
 
-      display: flex;
+  font-size: 38px;
 
-      justify-content: center;
+  line-height: 1;
 
-      align-items: center;
+  font-weight: 850;
 
-      position: relative;
+  letter-spacing: -2px;
 
-      margin-bottom: 18px;
+  color: #0c1424;
 
-    }
+  margin: 7px 0 9px;
 
+  font-variant-numeric: tabular-nums;
 
-    .record-button-ring {
+}
 
-      width: 116px;
 
-      height: 116px;
+/* =========================================================
+   RECORD BUTTON
+   ========================================================= */
 
-      border-radius: 50%;
+.record-button-wrap {
 
-      display: flex;
+  display: flex;
 
-      align-items: center;
+  justify-content: center;
 
-      justify-content: center;
+  margin-bottom: 6px;
 
-      background:
-        radial-gradient(
-          circle,
-          rgba(239,68,68,0.13) 0%,
-          rgba(239,68,68,0.04) 55%,
-          transparent 56%
-        );
+}
 
-      transition: all 0.3s ease;
 
-    }
+.record-button-ring {
 
+  width: 68px;
 
-    .record-button {
+  height: 68px;
 
-      width: 82px;
+  display: flex;
 
-      height: 82px;
+  align-items: center;
 
-      border-radius: 50%;
+  justify-content: center;
 
-      border: none;
+  border-radius: 50%;
 
-      background:
-        linear-gradient(
-          145deg,
-          #ef4444,
-          #dc2626
-        );
+  background:
 
-      color: white;
+    radial-gradient(
+      circle,
+      rgba(239,68,68,.10),
+      transparent 68%
+    );
 
-      font-size: 30px;
+}
 
-      cursor: pointer;
 
-      display: flex;
+.record-button {
 
-      align-items: center;
+  width: 52px;
 
-      justify-content: center;
+  height: 52px;
 
-      box-shadow:
-        0 12px 28px
-        rgba(239, 68, 68, 0.30);
+  border: none;
 
-      transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+  border-radius: 50%;
 
-    }
+  display: flex;
 
+  align-items: center;
 
-    .record-button:active {
+  justify-content: center;
 
-      transform: scale(0.94);
+  font-size: 20px;
 
-    }
+  color: white;
 
+  cursor: pointer;
 
-    .recording-active
-    .record-button-ring {
+  background:
 
-      animation: recordingRing 1.4s infinite;
+    linear-gradient(
+      145deg,
+      #ff5555,
+      #dc2626
+    );
 
-    }
+  box-shadow:
 
+    0 7px 18px
+    rgba(239,68,68,.28);
 
-    @keyframes recordingRing {
+  transition: .18s;
 
-      0% {
+}
 
-        box-shadow:
-          0 0 0 0
-          rgba(239,68,68,0.25);
 
-      }
+.record-button:active {
 
-      70% {
+  transform: scale(.92);
 
-        box-shadow:
-          0 0 0 22px
-          rgba(239,68,68,0);
+}
 
-      }
 
-      100% {
+.recording-active
+.record-button-ring {
 
-        box-shadow:
-          0 0 0 0
-          rgba(239,68,68,0);
+  animation: ring 1.3s infinite;
 
-      }
+}
 
-    }
 
+@keyframes ring {
 
-    .record-label {
+  0% {
+    box-shadow:
+      0 0 0 0 rgba(239,68,68,.20);
+  }
 
-      font-size: 12px;
+  70% {
+    box-shadow:
+      0 0 0 13px rgba(239,68,68,0);
+  }
 
-      font-weight: 800;
+  100% {
+    box-shadow:
+      0 0 0 0 rgba(239,68,68,0);
+  }
 
-      color: #64748b;
+}
 
-      margin-top: 4px;
 
-    }
+.record-label {
 
+  font-size: 8px;
 
-    /* =========================================
-       CONTROL BUTTONS
-       ========================================= */
+  color: #7b8798;
 
-    .controls {
+  font-weight: 750;
 
-      display: flex;
+  margin-bottom: 7px;
 
-      justify-content: center;
+}
 
-      gap: 10px;
 
-      flex-wrap: wrap;
+/* =========================================================
+   SMALL CONTROLS
+   ========================================================= */
 
-    }
+.controls {
 
+  display: flex;
 
-    .control-button {
+  justify-content: center;
 
-      border: 1px solid var(--border);
+  gap: 6px;
 
-      background: white;
+}
 
-      color: #334155;
 
-      border-radius: 11px;
+.control-button {
 
-      padding: 10px 15px;
+  border: 1px solid var(--line);
 
-      font-size: 12px;
+  background: white;
 
-      font-weight: 800;
+  color: #4b5563;
 
-      cursor: pointer;
+  border-radius: 7px;
 
-      transition: all 0.2s ease;
+  padding: 6px 11px;
 
-    }
+  font-size: 9px;
 
+  font-weight: 800;
 
-    .control-button:hover {
+  cursor: pointer;
 
-      background: #f8fafc;
+}
 
-    }
 
+.control-button.stop {
 
-    .control-button:active {
+  color: #b91c1c;
 
-      transform: scale(0.97);
+}
 
-    }
 
+/* =========================================================
+   AUDIO
+   ========================================================= */
 
-    .control-button.stop {
+.audio-section {
 
-      color: #b91c1c;
+  display: none;
 
-    }
+  margin-top: 10px;
 
+  padding: 9px;
 
-    /* =========================================
-       AUDIO PLAYER
-       ========================================= */
+  border-radius: 9px;
 
-    .audio-section {
+  background: #f7f9fc;
 
-      display: none;
+  border: 1px solid var(--line);
 
-      margin-top: 22px;
+  text-align: left;
 
-      padding: 16px;
+}
 
-      border-radius: 15px;
 
-      background: #f8fafc;
+.audio-title {
 
-      border: 1px solid var(--border);
+  font-size: 8px;
 
-      text-align: left;
+  font-weight: 800;
 
-    }
+  color: #536074;
 
+  margin-bottom: 5px;
 
-    .audio-title {
+}
 
-      display: flex;
 
-      align-items: center;
+audio {
 
-      gap: 8px;
+  width: 100%;
 
-      font-size: 12px;
+  height: 30px;
 
-      font-weight: 800;
+}
 
-      margin-bottom: 10px;
 
-      color: #334155;
+/* =========================================================
+   ACTIONS
+   ========================================================= */
 
-    }
+.actions {
 
+  display: grid;
 
-    audio {
+  grid-template-columns: 1fr 1fr;
 
-      width: 100%;
+  gap: 8px;
 
-      height: 42px;
+  padding:
+    10px
+    18px;
 
-    }
+  border-top: 1px solid var(--line);
 
+  background: #fbfcfe;
 
-    /* =========================================
-       BOTTOM ACTIONS
-       ========================================= */
+}
 
-    .actions {
 
-      display: grid;
+.action-button {
 
-      grid-template-columns: 1fr 1fr;
+  height: 35px;
 
-      gap: 10px;
+  border: none;
 
-      padding: 20px 22px 22px;
+  border-radius: 9px;
 
-      border-top: 1px solid var(--border);
+  font-size: 10px;
 
-      background: #fcfdff;
+  font-weight: 850;
 
-    }
+  cursor: pointer;
 
+  transition: .18s;
 
-    .action-button {
+}
 
-      border: none;
 
-      border-radius: 13px;
+.action-button:active {
 
-      padding: 14px 12px;
+  transform: scale(.98);
 
-      font-size: 13px;
+}
 
-      font-weight: 800;
 
-      cursor: pointer;
+.save-button {
 
-      transition: all 0.2s ease;
+  color: white;
 
-    }
+  background:
 
+    linear-gradient(
+      135deg,
+      #16a34a,
+      #15803d
+    );
 
-    .action-button:active {
+  box-shadow:
+    0 5px 12px
+    rgba(22,163,74,.17);
 
-      transform: scale(0.98);
+}
 
-    }
 
+.history-button {
 
-    .save-button {
+  color: #334155;
 
-      background:
-        linear-gradient(
-          135deg,
-          #16a34a,
-          #15803d
-        );
+  background: #edf2f7;
 
-      color: white;
+}
 
-      box-shadow:
-        0 8px 18px
-        rgba(22, 163, 74, 0.18);
 
-    }
+/* =========================================================
+   STATUS
+   ========================================================= */
 
+.footer-status {
 
-    .history-button {
+  min-height: 21px;
 
-      background: #edf2f7;
+  padding:
+    0
+    18px
+    9px;
 
-      color: #334155;
+  text-align: center;
 
-    }
+  font-size: 8px;
 
+  color: #8994a5;
 
-    /* =========================================
-       DISABLED
-       ========================================= */
+}
 
-    button:disabled {
 
-      opacity: 0.42;
+button:disabled {
 
-      cursor: not-allowed;
+  opacity: .42;
 
-      transform: none !important;
+  cursor: not-allowed;
 
-      box-shadow: none !important;
+  box-shadow: none !important;
 
-    }
+}
 
 
-    /* =========================================
-       FOOTER STATUS
-       ========================================= */
+/* =========================================================
+   MOBILE
+   ========================================================= */
 
-    .footer-status {
+@media (max-width: 500px) {
 
-      text-align: center;
+  body {
 
-      min-height: 24px;
+    padding:
+      6px
+      7px
+      calc(7px + env(safe-area-inset-bottom));
 
-      padding: 0 20px 22px;
+  }
 
-      font-size: 12px;
 
-      color: var(--muted);
+  .topbar {
 
-      line-height: 1.5;
+    height: 43px;
 
-    }
+    margin-bottom: 6px;
 
+  }
 
-    /* =========================================
-       MOBILE
-       ========================================= */
 
-    @media (max-width: 520px) {
+  .brand-icon {
 
-      body {
+    width: 33px;
 
-        padding:
-          12px 10px
-          calc(14px + env(safe-area-inset-bottom));
+    height: 33px;
 
-      }
+    font-size: 16px;
 
+    border-radius: 10px;
 
-      .topbar {
+  }
 
-        margin-bottom: 12px;
 
-      }
+  .brand-title {
 
+    font-size: 12px;
 
-      .brand-icon {
+  }
 
-        width: 42px;
 
-        height: 42px;
+  .brand-subtitle {
 
-        border-radius: 13px;
+    display: none;
 
-      }
+  }
 
 
-      .brand-title {
+  .speaker-badge {
 
-        font-size: 15px;
+    max-width: 125px;
 
-      }
+    font-size: 8px;
 
+  }
 
-      .speaker-badge {
 
-        max-width: 145px;
+  .main-card {
 
-        font-size: 10px;
+    border-radius: 16px;
 
-        padding: 8px 10px;
+  }
 
-      }
 
+  .doubt-header {
 
-      .doubt-header {
+    min-height: 82px;
 
-        padding: 22px 18px;
+    padding: 12px 14px;
 
-      }
+  }
 
 
-      .doubt-title {
+  .doubt-title {
 
-        font-size: 20px;
+    font-size: 16px;
 
-      }
+  }
 
 
-      .context,
+  .context {
 
-      .form-section,
+    padding:
+      9px
+      14px;
 
-      .recorder-area {
+  }
 
-        padding-left: 18px;
 
-        padding-right: 18px;
+  .doubt-text {
 
-      }
+    font-size: 10px;
 
+    max-height: 39px;
 
-      .actions {
+  }
 
-        padding-left: 18px;
 
-        padding-right: 18px;
+  .form-section {
 
-      }
+    padding:
+      8px
+      14px;
 
+  }
 
-      .timer {
 
-        font-size: 48px;
+  .recorder-area {
 
-      }
+    padding:
+      1px
+      14px
+      10px;
 
+  }
 
-      .record-button-ring {
 
-        width: 108px;
+  .timer {
 
-        height: 108px;
+    font-size: 34px;
 
-      }
+    margin:
+      5px
+      0
+      7px;
 
+  }
 
-      .record-button {
 
-        width: 78px;
+  .record-button-ring {
 
-        height: 78px;
+    width: 60px;
 
-      }
+    height: 60px;
 
-    }
+  }
 
 
-    /* =========================================
-       VERY SMALL PHONES
-       ========================================= */
+  .record-button {
 
-    @media (max-width: 360px) {
+    width: 47px;
 
-      .speaker-badge {
+    height: 47px;
 
-        max-width: 120px;
+    font-size: 18px;
 
-      }
+  }
 
 
-      .speaker-badge span {
+  .actions {
 
-        overflow: hidden;
+    padding:
+      8px
+      14px;
 
-        text-overflow: ellipsis;
+  }
 
-        white-space: nowrap;
 
-      }
+  .footer-status {
 
+    padding-bottom: 7px;
 
-      .actions {
+  }
 
-        grid-template-columns: 1fr;
+}
 
-      }
 
-    }
+/* =========================================================
+   SHORT LAPTOP / SMALL SCREEN
+   ========================================================= */
 
-  </style>
+@media (max-height: 700px) and (min-width: 501px) {
+
+  body {
+
+    padding-top: 5px;
+
+    padding-bottom: 5px;
+
+  }
+
+
+  .topbar {
+
+    height: 40px;
+
+    margin-bottom: 4px;
+
+  }
+
+
+  .brand-icon {
+
+    width: 32px;
+
+    height: 32px;
+
+  }
+
+
+  .doubt-header {
+
+    min-height: 78px;
+
+    padding:
+      10px
+      16px;
+
+  }
+
+
+  .context {
+
+    padding:
+      8px
+      16px;
+
+  }
+
+
+  .form-section {
+
+    padding:
+      7px
+      16px;
+
+  }
+
+
+  .recorder-area {
+
+    padding-bottom: 8px;
+
+  }
+
+
+  .timer {
+
+    font-size: 32px;
+
+    margin:
+      4px
+      0
+      5px;
+
+  }
+
+
+  .record-button-ring {
+
+    width: 57px;
+
+    height: 57px;
+
+  }
+
+
+  .record-button {
+
+    width: 45px;
+
+    height: 45px;
+
+    font-size: 17px;
+
+  }
+
+
+  .actions {
+
+    padding:
+      7px
+      16px;
+
+  }
+
+
+  .footer-status {
+
+    padding-bottom: 5px;
+
+  }
+
+}
+
+
+</style>
 
 </head>
 
@@ -1112,14 +1233,13 @@
 <div class="app">
 
 
-  <!-- ======================================
-       TOP BAR
-       ====================================== -->
+  <!-- TOP BAR -->
 
   <div class="topbar">
 
 
     <div class="brand">
+
 
       <div class="brand-icon">
         🎙️
@@ -1133,10 +1253,11 @@
         </div>
 
         <div class="brand-subtitle">
-          Capture your doubts. Keep learning.
+          Capture your doubts • Keep learning
         </div>
 
       </div>
+
 
     </div>
 
@@ -1155,19 +1276,17 @@
 
 
 
-  <!-- ======================================
-       MAIN CARD
-       ====================================== -->
+  <!-- MAIN CARD -->
 
   <div class="main-card">
 
 
-    <!-- DOUBT HEADER -->
+    <!-- HEADER -->
 
     <div class="doubt-header">
 
       <div class="small-label">
-        Current Doubt
+        CURRENT DOUBT
       </div>
 
 
@@ -1175,7 +1294,7 @@
         class="doubt-title"
         id="subject"
       >
-        —
+        CA Doubt
       </h1>
 
 
@@ -1190,12 +1309,12 @@
 
 
 
-    <!-- DOUBT TEXT -->
+    <!-- QUESTION -->
 
     <div class="context">
 
       <div class="context-label">
-        Your Question
+        YOUR QUESTION
       </div>
 
 
@@ -1255,7 +1374,6 @@
 
         <span
           class="status-dot"
-          id="statusDot"
         ></span>
 
         <span id="statusText">
@@ -1275,10 +1393,7 @@
 
 
 
-      <div
-        class="record-button-wrap"
-        id="recordButtonWrap"
-      >
+      <div class="record-button-wrap">
 
         <div class="record-button-ring">
 
@@ -1347,7 +1462,7 @@
 
 
 
-      <!-- AUDIO PLAYER -->
+      <!-- AUDIO -->
 
       <div
         class="audio-section"
@@ -1355,22 +1470,13 @@
       >
 
         <div class="audio-title">
-
-          <span>🎧</span>
-
-          <span>
-            Listen before saving
-          </span>
-
+          🎧 Listen before saving
         </div>
 
 
         <audio
-
           id="audioPlayer"
-
           controls
-
         ></audio>
 
       </div>
@@ -1380,7 +1486,7 @@
 
 
 
-    <!-- ACTION BUTTONS -->
+    <!-- ACTIONS -->
 
     <div class="actions">
 
@@ -1434,16 +1540,10 @@
 
 
 
-<!-- Hidden upload frame -->
-
 <iframe
-
   name="uploadFrame"
-
   id="uploadFrame"
-
   style="display:none;"
-
 ></iframe>
 
 
@@ -1451,9 +1551,9 @@
 <script>
 
 
-/* =====================================================
+/* =========================================================
    APPS SCRIPT URL
-   ===================================================== */
+   ========================================================= */
 
 const APPS_SCRIPT_URL =
 
@@ -1461,47 +1561,9 @@ const APPS_SCRIPT_URL =
 
 
 
-/* =====================================================
-   OPEN HISTORY
-   ===================================================== */
-
-function openHistory() {
-
-
-  if (!APPS_SCRIPT_URL) {
-
-    alert(
-      'Apps Script URL is missing.'
-    );
-
-    return;
-
-  }
-
-
-  const historyURL =
-
-    APPS_SCRIPT_URL +
-
-    '?action=history&speaker=' +
-
-    encodeURIComponent(
-      speaker
-    );
-
-
-  window.open(
-    historyURL,
-    '_blank'
-  );
-
-}
-
-
-
-/* =====================================================
-   READ GOOGLE SHEET INFORMATION
-   ===================================================== */
+/* =========================================================
+   URL PARAMETERS
+   ========================================================= */
 
 const params =
 
@@ -1511,36 +1573,30 @@ const params =
 
 
 const row =
-
   params.get('row') || '';
 
 
 const speaker =
-
   params.get('speaker') ||
-
   'Dhabbaaa swaram';
 
 
 const subject =
-
   params.get('subject') || '';
 
 
 const section =
-
   params.get('section') || '';
 
 
 const doubt =
-
   params.get('doubt') || '';
 
 
 
-/* =====================================================
-   SHOW INFORMATION
-   ===================================================== */
+/* =========================================================
+   DISPLAY DATA
+   ========================================================= */
 
 document.getElementById(
   'speaker'
@@ -1550,28 +1606,25 @@ document.getElementById(
 document.getElementById(
   'subject'
 ).innerText =
-
   subject || 'CA Doubt';
 
 
 document.getElementById(
   'section'
 ).innerText =
-
-  section || 'No section specified';
+  section || 'No section';
 
 
 document.getElementById(
   'doubt'
 ).innerText =
-
-  doubt || 'No doubt text provided';
-
+  doubt || 'No doubt text';
 
 
-/* =====================================================
-   DEFAULT RECORDING NAME
-   ===================================================== */
+
+/* =========================================================
+   DEFAULT NAME
+   ========================================================= */
 
 document.getElementById(
   'recordingName'
@@ -1599,9 +1652,9 @@ document.getElementById(
 
 
 
-/* =====================================================
-   RECORDING VARIABLES
-   ===================================================== */
+/* =========================================================
+   VARIABLES
+   ========================================================= */
 
 let mediaRecorder = null;
 
@@ -1615,63 +1668,50 @@ let seconds = 0;
 
 
 
-/* =====================================================
+/* =========================================================
    ELEMENTS
-   ===================================================== */
+   ========================================================= */
 
 const recorderArea =
-
   document.getElementById(
     'recorderArea'
   );
 
 
 const statusPill =
-
   document.getElementById(
     'statusPill'
   );
 
 
 const statusText =
-
   document.getElementById(
     'statusText'
   );
 
 
-const statusDot =
-
-  document.getElementById(
-    'statusDot'
-  );
-
-
 const recordLabel =
-
   document.getElementById(
     'recordLabel'
   );
 
 
 const audioSection =
-
   document.getElementById(
     'audioSection'
   );
 
 
 const audioPlayer =
-
   document.getElementById(
     'audioPlayer'
   );
 
 
 
-/* =====================================================
-   STATUS UI
-   ===================================================== */
+/* =========================================================
+   STATUS
+   ========================================================= */
 
 function setStatus(
   message,
@@ -1720,9 +1760,36 @@ function setStatus(
 
 
 
-/* =====================================================
+/* =========================================================
+   HISTORY
+   ========================================================= */
+
+function openHistory() {
+
+
+  const historyURL =
+
+    APPS_SCRIPT_URL +
+
+    '?action=history&speaker=' +
+
+    encodeURIComponent(
+      speaker
+    );
+
+
+  window.open(
+    historyURL,
+    '_blank'
+  );
+
+}
+
+
+
+/* =========================================================
    START RECORDING
-   ===================================================== */
+   ========================================================= */
 
 async function startRecording() {
 
@@ -1735,9 +1802,7 @@ async function startRecording() {
       await navigator
         .mediaDevices
         .getUserMedia({
-
           audio: true
-
         });
 
 
@@ -1754,7 +1819,6 @@ async function startRecording() {
     mediaRecorder.ondataavailable =
 
       function(event) {
-
 
         if (
           event.data.size > 0
@@ -1777,16 +1841,11 @@ async function startRecording() {
         audioBlob =
 
           new Blob(
-
             audioChunks,
-
             {
-
               type:
                 'audio/webm'
-
             }
-
           );
 
 
@@ -1845,10 +1904,6 @@ async function startRecording() {
     );
 
 
-    recordLabel.innerText =
-      'Recording in progress...';
-
-
     seconds = 0;
 
 
@@ -1861,12 +1916,13 @@ async function startRecording() {
     timerInterval =
 
       setInterval(
-
         updateTimer,
-
         1000
-
       );
+
+
+    recordLabel.innerText =
+      'Recording in progress...';
 
 
     setStatus(
@@ -1884,8 +1940,7 @@ async function startRecording() {
 
 
     setStatus(
-      'Microphone permission failed.',
-      'ready'
+      'Microphone permission failed.'
     );
 
 
@@ -1899,9 +1954,9 @@ async function startRecording() {
 
 
 
-/* =====================================================
-   STOP RECORDING
-   ===================================================== */
+/* =========================================================
+   STOP
+   ========================================================= */
 
 function stopRecording() {
 
@@ -1922,10 +1977,8 @@ function stopRecording() {
     mediaRecorder.stream
       .getTracks()
       .forEach(
-
         track =>
           track.stop()
-
       );
 
   }
@@ -1959,9 +2012,9 @@ function stopRecording() {
 
 
 
-/* =====================================================
+/* =========================================================
    TIMER
-   ===================================================== */
+   ========================================================= */
 
 function updateTimer() {
 
@@ -1970,14 +2023,12 @@ function updateTimer() {
 
 
   const minutes =
-
     Math.floor(
       seconds / 60
     );
 
 
   const secs =
-
     seconds % 60;
 
 
@@ -2001,9 +2052,9 @@ function updateTimer() {
 
 
 
-/* =====================================================
+/* =========================================================
    RESET
-   ===================================================== */
+   ========================================================= */
 
 function resetRecorder() {
 
@@ -2058,8 +2109,7 @@ function resetRecorder() {
 
 
   setStatus(
-    'Ready to record.',
-    'ready'
+    'Ready to record.'
   );
 
 
@@ -2069,9 +2119,9 @@ function resetRecorder() {
 
 
 
-/* =====================================================
-   SAVE RECORDING
-   ===================================================== */
+/* =========================================================
+   SAVE
+   ========================================================= */
 
 function saveRecording() {
 
@@ -2095,11 +2145,9 @@ function saveRecording() {
 
   if (!recordingName) {
 
-
     alert(
       'Please enter a recording name.'
     );
-
 
     return;
 
@@ -2112,13 +2160,11 @@ function saveRecording() {
 
 
   setStatus(
-    'Saving to Google Drive...',
-    'ready'
+    'Saving to Google Drive...'
   );
 
 
   const reader =
-
     new FileReader();
 
 
@@ -2134,7 +2180,6 @@ function saveRecording() {
 
 
       const form =
-
         document.createElement(
           'form'
         );
@@ -2153,17 +2198,12 @@ function saveRecording() {
 
 
 
-      /* AUDIO */
-
       addField(
         form,
         'audioData',
         base64
       );
 
-
-
-      /* RECORDING NAME */
 
       addField(
         form,
@@ -2172,18 +2212,12 @@ function saveRecording() {
       );
 
 
-
-      /* FILE NAME */
-
       addField(
         form,
         'fileName',
         recordingName + '.webm'
       );
 
-
-
-      /* ROW */
 
       addField(
         form,
@@ -2192,18 +2226,12 @@ function saveRecording() {
       );
 
 
-
-      /* SPEAKER */
-
       addField(
         form,
         'speaker',
         speaker
       );
 
-
-
-      /* SUBJECT */
 
       addField(
         form,
@@ -2212,18 +2240,12 @@ function saveRecording() {
       );
 
 
-
-      /* SECTION */
-
       addField(
         form,
         'section',
         section
       );
 
-
-
-      /* DOUBT */
 
       addField(
         form,
@@ -2238,14 +2260,12 @@ function saveRecording() {
 
 
       const iframe =
-
         document.getElementById(
           'uploadFrame'
         );
 
 
       iframe.onload =
-
         function() {
 
 
@@ -2258,7 +2278,6 @@ function saveRecording() {
           document.getElementById(
             'saveBtn'
           ).disabled = false;
-
 
         };
 
@@ -2279,9 +2298,9 @@ function saveRecording() {
 
 
 
-/* =====================================================
-   ADD HIDDEN FIELD
-   ===================================================== */
+/* =========================================================
+   HIDDEN FIELD
+   ========================================================= */
 
 function addField(
   form,
@@ -2291,7 +2310,6 @@ function addField(
 
 
   const input =
-
     document.createElement(
       'input'
     );
